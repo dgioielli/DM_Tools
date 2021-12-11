@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DMTools"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        mc:Ignorable="d" Visibility="{Binding Path=WDW_Visible, Mode=OneWay}"
+        Title="DM Tools" Height="150" Width="300">
+    <StackPanel>
+        <Button Content="Continue Current Campaign" Margin="3" Command="{Binding Path=BTN_ContinueCurrentCampaign}"/>
+        <Button Content="New Campaign" Margin="3" Command="{Binding Path=BTN_NewCampaign}"/>
+        <Button Content="Open Campaign" Margin="3" Command="{Binding Path=BTN_OpenCampaign}"/>
+    </StackPanel>
 </Window>

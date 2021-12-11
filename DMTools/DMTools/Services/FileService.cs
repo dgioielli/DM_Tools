@@ -51,6 +51,11 @@ namespace DMTools.Services
             return true;
         }
 
+        internal static void LoadFile(object systemLayersFile, out string contentFile)
+        {
+            throw new NotImplementedException();
+        }
+
         public static string GetFullFilePath(string filePath)
         {
             if (filePath == "") return "";
@@ -76,6 +81,19 @@ namespace DMTools.Services
             {
                 return false;
             }
+        }
+
+        internal static List<string> GetFileNames(string dirPath, string ext = "")
+        {
+            var dirInfo = new DirectoryInfo(dirPath);
+            var files = dirInfo.GetFiles();
+            var result = new List<string>();
+            foreach (var file in files)
+            {
+                if (ext != "" && file.Extension != ext) continue;
+                result.Add(file.Name.Replace(ext, ""));
+            }
+            return result;
         }
     }
 }

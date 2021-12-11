@@ -133,7 +133,7 @@ namespace DMTools.CoreLib.Logger
                 }
                 joinLogs(files, pathBase);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
@@ -165,7 +165,7 @@ namespace DMTools.CoreLib.Logger
                                 }
                                 sr.Close();
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 sr.Close();
                             }
@@ -175,7 +175,7 @@ namespace DMTools.CoreLib.Logger
                     linhas.ForEach(x => sw.WriteLine(x));
                     sw.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     sw.Close();
                 }

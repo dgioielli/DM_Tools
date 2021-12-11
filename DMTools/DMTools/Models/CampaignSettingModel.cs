@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace DMTools.Models
 {
-    public class Campaign
+    public class CampaignSettingModel
     {
         #region Variables and Properties
 
-        public string CampaignName { get; set; }
-        public CampaignSetting Setting { get; set; }
+        public string SettingName { get; set; }
 
         #endregion
 

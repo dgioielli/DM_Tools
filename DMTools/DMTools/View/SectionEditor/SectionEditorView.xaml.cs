@@ -1,4 +1,6 @@
-﻿using DMTools.View;
+﻿using DMTools.Keys;
+using DMTools.Managers;
+using DMTools.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +13,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DMTools
+namespace DMTools.View.SectionEditor
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica interna para SectionEditorView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SectionEditorView : Window
     {
         #region Variables and Properties
 
-        MainWindowViewModel m_vm = new MainWindowViewModel();
+        SectionEditorViewModel m_vm;
 
         #endregion
 
         #region Constructors
 
-        public MainWindow()
+        public SectionEditorView(SectionModel model)
         {
             InitializeComponent();
+            m_vm = new SectionEditorViewModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
+            SetActions();
         }
 
         #endregion
@@ -42,8 +45,15 @@ namespace DMTools
 
         private void M_vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(m_vm.WDW_Visible)) Visibility = m_vm.WDW_Visible;
+            if (e.PropertyName == PropertyEventKeys.Close) Close();
         }
+
+        private void SetActions()
+        { }
+
+        #endregion
+
+        #region Functions
 
         #endregion
     }

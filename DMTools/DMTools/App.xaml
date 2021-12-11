@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:DMTools"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <!--<BitmapImage x:Key="EditIcon" UriSource="/Resources/2561427_edit_icon.png"/>-->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
