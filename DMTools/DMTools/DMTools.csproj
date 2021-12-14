@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\Campaign\1904675_configuration_edit_gear_options_preferences_icon.png" />
+    <None Remove="View\Campaign\211607_right_arrow_icon.png" />
+    <None Remove="View\Campaign\211689_left_arrow_icon.png" />
     <None Remove="View\Campaign\2561427_edit_icon.png" />
     <None Remove="View\Campaign\3643729_bin_delete_garbage_rubbish_trash_icon.png" />
+    <None Remove="View\Campaign\3643763_list_mark_menu_option_sign_icon.png" />
+    <None Remove="View\Campaign\4213478_plus_add_button_action_more_icon.png" />
     <None Remove="View\Campaign\7148741_clone_duplicate_copy_icon.png" />
   </ItemGroup>
 
@@ -17,8 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="View\Campaign\1904675_configuration_edit_gear_options_preferences_icon.png" />
+    <Resource Include="View\Campaign\211607_right_arrow_icon.png" />
+    <Resource Include="View\Campaign\211689_left_arrow_icon.png" />
     <Resource Include="View\Campaign\2561427_edit_icon.png" />
     <Resource Include="View\Campaign\3643729_bin_delete_garbage_rubbish_trash_icon.png" />
+    <Resource Include="View\Campaign\3643763_list_mark_menu_option_sign_icon.png" />
+    <Resource Include="View\Campaign\4213478_plus_add_button_action_more_icon.png" />
     <Resource Include="View\Campaign\7148741_clone_duplicate_copy_icon.png" />
   </ItemGroup>
 
@@ -35,6 +45,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\SectionModels\" />
   </ItemGroup>
 
 </Project>

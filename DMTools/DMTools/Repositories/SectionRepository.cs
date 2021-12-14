@@ -93,6 +93,7 @@ namespace DMTools.Repositories
         {
             result.SectionName = model.SectionName;
             result.SectionIntro = model.SectionIntro;
+            model.Notes.ForEach(x => result.Notes.Add(x));
         }
 
         #endregion

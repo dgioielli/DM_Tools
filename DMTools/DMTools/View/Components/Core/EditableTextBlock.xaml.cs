@@ -24,9 +24,14 @@ namespace DMTools.View.Components.Core
     {
         #region Variables and Properties
 
-        public string TextBase { get => stt_text.Text; set { stt_text.Text = value; txt_text.Text = value; } }
+        public Action OnTextChanged;
+
+        private string m_placeHolder = "";
+
+        public string TextBase { get => txt_text.Text; set { txt_text.Text = value; setLabel(value); } }
         public TextWrapping TextWrapping { get => stt_text.TextWrapping; set { stt_text.TextWrapping = value; txt_text.TextWrapping = value; } }
         public bool AcceptReturn { get => txt_text.AcceptsReturn; set => txt_text.AcceptsReturn = value; }
+        public string PlaceHolder { get => m_placeHolder; set { m_placeHolder = value; setLabel(TextBase); } }
 
         #endregion
 
@@ -36,6 +41,7 @@ namespace DMTools.View.Components.Core
         {
             InitializeComponent();
             SetLinks();
+            setLabel("");
         }
 
         #endregion
@@ -57,6 +63,20 @@ namespace DMTools.View.Components.Core
 
         #region Functions
 
+        private void setLabel(string value)
+        {
+            if (value == "")
+            {
+                stt_text.Foreground = Brushes.Gray;
+                stt_text.Text = PlaceHolder;
+            }
+            else
+            {
+                stt_text.Foreground = Brushes.Black;
+                stt_text.Text = value;
+            }
+        }
+
         private void SetLinks()
         {
             this.MouseDoubleClick += (sender, e) => ShowEditor();
@@ -65,6 +85,7 @@ namespace DMTools.View.Components.Core
 
         private void ShowEditor()
         {
+            txt_text.MinHeight = stt_text.ActualHeight;
             txt_text.Visibility = Visibility.Visible;
             txt_text.SelectAll();
             txt_text.Focus();
@@ -72,8 +93,11 @@ namespace DMTools.View.Components.Core
 
         private void HideEditor()
         {
+            txt_text.MinHeight = 0.0;
             txt_text.Visibility = Visibility.Hidden;
+            TextBase = txt_text.Text;
             Text = txt_text.Text;
+            OnTextChanged?.Invoke();
         }
 
         #endregion

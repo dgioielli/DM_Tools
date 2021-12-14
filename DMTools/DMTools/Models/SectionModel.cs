@@ -18,7 +18,7 @@ namespace DMTools.Models
         public List<object> Locations { get; protected set; }
         public List<object> Organizations { get; protected set; }
         public List<object> Encounters { get; protected set; }
-        public List<object> Notes { get; protected set; }
+        public List<string> Notes { get; protected set; }
 
 
         #endregion
@@ -35,7 +35,7 @@ namespace DMTools.Models
             Locations = new List<object>();
             Organizations = new List<object>();
             Encounters = new List<object>();
-            Notes = new List<object>();
+            Notes = new List<string>();
         }
 
         #endregion

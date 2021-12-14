@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DMTools.View.Campaign"
         xmlns:local_core="clr-namespace:DMTools.View.Components.Core"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="{Binding Path=WDW_Title, Mode=OneWay}" Height="450" Width="800">
+        Title="{Binding Path=WDW_Title, Mode=OneWay}" Height="650" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,6 +16,7 @@
         <local_core:EditableTextBlock Text="{Binding Path=TXT_CampaignName, Mode=TwoWay}" Margin="5" FontSize="30" FontWeight="Bold"/>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel>
+                <local:SettingPreviewUserControl/>
                 <TextBlock Text="Sections:" Margin="3" FontSize="25" FontStyle="Italic"/>
                 <Grid x:Name="grd_sections"/>
             </StackPanel>

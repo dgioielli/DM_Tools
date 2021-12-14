@@ -1,7 +1,6 @@
 ﻿using DMTools.CoreLib.PoolItems;
 using DMTools.Keys;
-using DMTools.Managers;
-using DMTools.Models;
+using DMTools.Models.SettingModels;
 using DMTools.View.Components.Core;
 using System;
 using System.Collections.Generic;
@@ -17,29 +16,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DMTools.View.SectionEditor
+namespace DMTools.View.CharacterEditor
 {
     /// <summary>
-    /// Lógica interna para SectionEditorView.xaml
+    /// Lógica interna para CharacterEditorView.xaml
     /// </summary>
-    public partial class SectionEditorView : Window
+    public partial class CharacterEditorView : Window
     {
         #region Variables and Properties
 
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
 
-        SectionEditorViewModel m_vm;
+        CharacterEditorViewModel m_vm;
 
         #endregion
 
         #region Constructors
 
-        public SectionEditorView(SectionModel model)
+        public CharacterEditorView(CharacterModel model)
         {
             InitializeComponent();
             m_poolNotes = new PoolGeneric<EditableTextBlock, string>(NewNote, RefreshNote);
-            m_vm = new SectionEditorViewModel(model);
+            m_vm = new CharacterEditorViewModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();

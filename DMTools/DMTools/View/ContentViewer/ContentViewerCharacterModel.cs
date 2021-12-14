@@ -1,32 +1,30 @@
 ﻿using DMTools.Keys;
-using DMTools.Managers.Observers;
-using DMTools.Models;
+using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Documents;
 
 namespace DMTools.View.ContentViewer
 {
-    class ContentViewerSectionModel : ContentViewerViewModel
+    class ContentViewerCharacterModel : ContentViewerViewModel
     {
         #region Variables and Properties
 
-        SectionRepository Repository => SectionRepository.GetInstance();
+        CharacterRepository Repository => CharacterRepository.GetInstance();
 
-        SectionModel m_model;
+        CharacterModel m_model;
 
-        public string WDW_Title { get => $"DM Tools - Section : {m_model.SectionName}"; }
+        public string WDW_Title { get => $"DM Tools - Character : {m_model.CharacterName}"; }
 
         #endregion
 
         #region Constructors
 
-        public ContentViewerSectionModel(SectionModel model)
+        public ContentViewerCharacterModel(CharacterModel model)
         { m_model = model; }
 
         #endregion
@@ -36,9 +34,8 @@ namespace DMTools.View.ContentViewer
         public override FlowDocument GetDocument()
         {
             var result = new FlowDocument();
-            AddHeading1(result, $"{m_model.SectionName}");
-            AddHeading2(result, $"Introduction:");
-            AddText(result, $"{m_model.SectionIntro}");
+            AddHeading1(result, $"{m_model.CharacterName}");
+            AddHeading2(result, $"{m_model.CharacterConcept}");
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             return result;

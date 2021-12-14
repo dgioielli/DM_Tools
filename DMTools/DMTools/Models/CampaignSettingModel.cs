@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMTools.Models.SettingModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,16 @@ namespace DMTools.Models
         #region Variables and Properties
 
         public string SettingName { get; set; }
+        public List<CharacterModel> Characters { get; set; }
 
         #endregion
 
         #region Constructors
+
+        public CampaignSettingModel()
+        {
+            Characters = new List<CharacterModel>();
+        }
 
         #endregion
 

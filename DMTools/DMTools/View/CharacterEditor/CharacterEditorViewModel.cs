@@ -1,7 +1,7 @@
 ﻿using DMTools.CoreLib.ViewModel;
 using DMTools.Keys;
 using DMTools.Managers;
-using DMTools.Models;
+using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,20 +10,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace DMTools.View.SectionEditor
+namespace DMTools.View.CharacterEditor
 {
-    class SectionEditorViewModel : DGViewModel
+    class CharacterEditorViewModel : DGViewModel
     {
         #region Variables and Properties
 
         ObserverManager Observer => ObserverManager.GetInstance();
 
-        SectionRepository Repository => SectionRepository.GetInstance();
-        SectionModel m_model;
+        CharacterRepository Repository => CharacterRepository.GetInstance();
+        CharacterModel m_model;
 
-        public string TXT_SectionName { get => m_model.SectionName; set { m_model.SectionName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
-        public string TXT_SectionIntro { get => m_model.SectionIntro; set { m_model.SectionIntro = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
-        public string WDW_Title { get => $"DM Tools - Section : {m_model.SectionName}"; }
+        public string TXT_CharacterName { get => m_model.CharacterName; set { m_model.CharacterName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
+        public string TXT_CharacterConcept { get => m_model.CharacterConcept; set { m_model.CharacterConcept = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
+        public string WDW_Title => $"DM Tools - Section : {m_model.CharacterName}";
         public List<string> LST_Notes { get => m_model.Notes; }
 
         public ICommand BTN_Update { get; protected set; }
@@ -34,7 +34,7 @@ namespace DMTools.View.SectionEditor
 
         #region Constructors
 
-        public SectionEditorViewModel(SectionModel model)
+        public CharacterEditorViewModel(CharacterModel model)
         {
             m_model = model;
         }
@@ -45,8 +45,8 @@ namespace DMTools.View.SectionEditor
 
         public void Update()
         {
-            OnPropertyChanged(nameof(TXT_SectionName));
-            OnPropertyChanged(nameof(TXT_SectionIntro));
+            OnPropertyChanged(nameof(TXT_CharacterName));
+            OnPropertyChanged(nameof(TXT_CharacterConcept));
             OnPropertyChanged(nameof(LST_Notes));
         }
 

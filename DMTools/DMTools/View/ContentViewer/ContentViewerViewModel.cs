@@ -39,6 +39,43 @@ namespace DMTools.View.ContentViewer
 
         public abstract void Update();
 
+        #region Insertion Block
+
+
+        protected void AddHeading1(FlowDocument result, string text) => AddHeading1(result, new Run(text));
+
+        protected void AddHeading1(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, 36, FontWeights.Bold, TextAlignment.Center);
+
+        protected void AddHeading2(FlowDocument result, string text) => AddHeading2(result, new Run(text));
+
+        protected void AddHeading2(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, 20, FontWeights.Bold);
+
+        protected void AddText(FlowDocument result, string text) => AddText(result, new Run(text));
+
+        protected void AddText(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines);
+
+        protected void AddParagraph(FlowDocument result, Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left) => result.Blocks.Add(GetParagraph(inlines, fontSize, fontWeight, textAlignment));
+
+        private Paragraph GetParagraph(string text) => GetParagraph(new Inline[] { new Run(text) });
+
+        private Paragraph GetParagraph(Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left)
+        {
+            var par = new Paragraph() { FontSize = fontSize, FontWeight = fontWeight, TextAlignment = textAlignment };
+            foreach (var run in inlines)
+                par.Inlines.Add(run);
+            return par;
+        }
+
+        protected void AddList(FlowDocument result, List<string> list)
+        {
+            var listResult = new List();
+            foreach (var line in list)
+                listResult.ListItems.Add(new ListItem(GetParagraph(line)));
+            result.Blocks.Add(listResult);
+        }
+
+        #endregion
+
         #endregion
     }
 }
