@@ -1,6 +1,7 @@
 ﻿using DMTools.Keys;
 using DMTools.Managers;
 using DMTools.Models;
+using DMTools.Models.SectionModels;
 using DMTools.Services;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,7 @@ namespace DMTools.Repositories
         {
             result.SectionName = model.SectionName;
             result.SectionIntro = model.SectionIntro;
+            model.Possibilities.ForEach(x => result.Possibilities.Add(new PossibilityModel(x)));
             model.Notes.ForEach(x => result.Notes.Add(x));
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMTools.Models.SectionModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace DMTools.Models
         public string ID { get; set; }
         public string SectionName { get; set; }
         public string SectionIntro { get; set; }
-        public List<object> Possibilities { get; protected set; }
+        public List<PossibilityModel> Possibilities { get; protected set; }
         public List<object> Characters { get; protected set; }
         public List<object> Locations { get; protected set; }
         public List<object> Organizations { get; protected set; }
@@ -30,7 +31,7 @@ namespace DMTools.Models
             ID = "";
             SectionName = "New Section";
             SectionIntro = "";
-            Possibilities = new List<object>();
+            Possibilities = new List<PossibilityModel>();
             Characters = new List<object>();
             Locations = new List<object>();
             Organizations = new List<object>();

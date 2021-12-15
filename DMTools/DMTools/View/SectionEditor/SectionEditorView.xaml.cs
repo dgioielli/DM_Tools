@@ -2,6 +2,7 @@
 using DMTools.Keys;
 using DMTools.Managers;
 using DMTools.Models;
+using DMTools.Models.SectionModels;
 using DMTools.View.Components.Core;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace DMTools.View.SectionEditor
         #region Variables and Properties
 
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
+        PoolGeneric<PossibilityCellControl, PossibilityModel> m_poolPossibilities;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
 
         SectionEditorViewModel m_vm;
@@ -39,11 +41,13 @@ namespace DMTools.View.SectionEditor
         {
             InitializeComponent();
             m_poolNotes = new PoolGeneric<EditableTextBlock, string>(NewNote, RefreshNote);
+            m_poolPossibilities = new PoolGeneric<PossibilityCellControl, PossibilityModel>(NewPossibility, RefreshPossibility);
             m_vm = new SectionEditorViewModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
             ShowNotes();
+            ShowPossibilities();
         }
 
         #endregion
@@ -54,6 +58,7 @@ namespace DMTools.View.SectionEditor
         {
             if (e.PropertyName == PropertyEventKeys.Close) Close();
             else if (e.PropertyName == nameof(m_vm.LST_Notes)) ShowNotes();
+            else if (e.PropertyName == nameof(m_vm.LST_Possibilities)) ShowPossibilities();
         }
 
         private void SetActions()
@@ -93,6 +98,31 @@ namespace DMTools.View.SectionEditor
             var notes = new List<string>();
             m_notes.ForEach(x => notes.Add(x.TextBase));
             m_vm.SetNotes(notes);
+        }
+
+        private void ShowPossibilities()
+        {
+            var list = m_vm.LST_Possibilities;
+            var possibilities = m_poolPossibilities.GetObjects(list);
+            pnl_possibilities.Children.Clear();
+            possibilities.ForEach(x => pnl_possibilities.Children.Add(x));
+        }
+
+        private PossibilityCellControl RefreshPossibility(PossibilityCellControl arg1, PossibilityModel arg2)
+        {
+            arg1.Update(arg2);
+            return arg1;
+        }
+
+        private PossibilityCellControl NewPossibility(PossibilityModel arg)
+        {
+            var result = new PossibilityCellControl(arg, OnPossibilityChanged);
+            return result;
+        }
+
+        private void OnPossibilityChanged()
+        {
+            m_vm.Update();
         }
 
         #endregion

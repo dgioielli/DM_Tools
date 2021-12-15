@@ -39,6 +39,8 @@ namespace DMTools.View.ContentViewer
             AddHeading1(result, $"{m_model.SectionName}");
             AddHeading2(result, $"Introduction:");
             AddText(result, $"{m_model.SectionIntro}");
+            AddHeading2(result, $"Possibilities:");
+            m_model.Possibilities.ForEach(x => { if (x.WasIgnored) AddStrikeoutText(result, x.Text); else AddText(result, x.Text); });
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             return result;

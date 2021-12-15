@@ -54,13 +54,17 @@ namespace DMTools.View.ContentViewer
 
         protected void AddText(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines);
 
-        protected void AddParagraph(FlowDocument result, Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left) => result.Blocks.Add(GetParagraph(inlines, fontSize, fontWeight, textAlignment));
+        protected void AddStrikeoutText(FlowDocument result, string text) => AddStrikeoutText(result, new Run(text));
+
+        protected void AddStrikeoutText(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, decoration: TextDecorations.Strikethrough);
+
+        protected void AddParagraph(FlowDocument result, Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left, FontStyle style = default(FontStyle), TextDecorationCollection decoration = default(TextDecorationCollection)) => result.Blocks.Add(GetParagraph(inlines, fontSize, fontWeight, textAlignment));
 
         private Paragraph GetParagraph(string text) => GetParagraph(new Inline[] { new Run(text) });
 
-        private Paragraph GetParagraph(Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left)
+        private Paragraph GetParagraph(Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left, FontStyle style = default(FontStyle), TextDecorationCollection decoration = default(TextDecorationCollection))
         {
-            var par = new Paragraph() { FontSize = fontSize, FontWeight = fontWeight, TextAlignment = textAlignment };
+            var par = new Paragraph() { FontSize = fontSize, FontWeight = fontWeight, TextAlignment = textAlignment, FontStyle = style, TextDecorations = decoration };
             foreach (var run in inlines)
                 par.Inlines.Add(run);
             return par;
