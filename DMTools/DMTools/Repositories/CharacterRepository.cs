@@ -89,9 +89,25 @@ namespace DMTools.Repositories
 
         private static void CopyInfo(CharacterModel model, CharacterModel result)
         {
-            result.CharacterName = model.CharacterName;
-            result.CharacterConcept = model.CharacterConcept;
+            result.Name = model.Name;
+            result.Concept = model.Concept;
+            result.Class = model.Class;
+            result.Race = model.Race;
             model.Notes.ForEach(x => result.Notes.Add(x));
+        }
+
+        internal List<string> GetAllClass()
+        {
+            var result = new List<string>();
+            Characters.ForEach(x => result.Add(x.Class));
+            return result.Distinct().OrderBy(x => x).ToList();
+        }
+
+        internal List<string> GetAllRaces()
+        {
+            var result = new List<string>();
+            Characters.ForEach(x => result.Add(x.Race));
+            return result.Distinct().OrderBy(x => x).ToList();
         }
 
         #endregion

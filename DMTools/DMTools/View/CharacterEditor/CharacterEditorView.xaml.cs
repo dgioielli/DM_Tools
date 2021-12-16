@@ -1,6 +1,7 @@
 ﻿using DMTools.CoreLib.PoolItems;
 using DMTools.Keys;
 using DMTools.Models.SettingModels;
+using DMTools.Repositories;
 using DMTools.View.Components.Core;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace DMTools.View.CharacterEditor
     {
         #region Variables and Properties
 
+        CharacterRepository Repository => CharacterRepository.GetInstance();
+
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
 
@@ -43,6 +46,8 @@ namespace DMTools.View.CharacterEditor
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
             ShowNotes();
+            cbo_race.SetOptions(Repository.GetAllRaces());
+            cbo_class.SetOptions(Repository.GetAllClass());
         }
 
         #endregion

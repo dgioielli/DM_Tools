@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace DMTools.View.ContentViewer
 {
@@ -56,15 +57,16 @@ namespace DMTools.View.ContentViewer
 
         protected void AddStrikeoutText(FlowDocument result, string text) => AddStrikeoutText(result, new Run(text));
 
-        protected void AddStrikeoutText(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, decoration: TextDecorations.Strikethrough);
+        protected void AddStrikeoutText(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, decoration: TextDecorations.Strikethrough, foreground: Brushes.LightGray);
 
-        protected void AddParagraph(FlowDocument result, Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left, FontStyle style = default(FontStyle), TextDecorationCollection decoration = default(TextDecorationCollection)) => result.Blocks.Add(GetParagraph(inlines, fontSize, fontWeight, textAlignment));
+        protected void AddParagraph(FlowDocument result, Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left, FontStyle style = default(FontStyle), TextDecorationCollection decoration = default(TextDecorationCollection), Brush foreground = default(Brush)) => result.Blocks.Add(GetParagraph(inlines, fontSize, fontWeight, textAlignment, style, decoration, foreground));
 
         private Paragraph GetParagraph(string text) => GetParagraph(new Inline[] { new Run(text) });
 
-        private Paragraph GetParagraph(Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left, FontStyle style = default(FontStyle), TextDecorationCollection decoration = default(TextDecorationCollection))
+        private Paragraph GetParagraph(Inline[] inlines, double fontSize = 12, FontWeight fontWeight = default(FontWeight), TextAlignment textAlignment = TextAlignment.Left, FontStyle style = default(FontStyle), TextDecorationCollection decoration = default(TextDecorationCollection), Brush foreground = default(Brush))
         {
-            var par = new Paragraph() { FontSize = fontSize, FontWeight = fontWeight, TextAlignment = textAlignment, FontStyle = style, TextDecorations = decoration };
+            if (foreground == default(Brush)) foreground = Brushes.Black;
+            var par = new Paragraph() { FontSize = fontSize, FontWeight = fontWeight, TextAlignment = textAlignment, FontStyle = style, TextDecorations = decoration, Foreground = foreground };
             foreach (var run in inlines)
                 par.Inlines.Add(run);
             return par;

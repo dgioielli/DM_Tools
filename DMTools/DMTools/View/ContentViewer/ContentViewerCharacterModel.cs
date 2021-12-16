@@ -18,7 +18,7 @@ namespace DMTools.View.ContentViewer
 
         CharacterModel m_model;
 
-        public string WDW_Title { get => $"DM Tools - Character : {m_model.CharacterName}"; }
+        public string WDW_Title { get => $"DM Tools - Character : {m_model.Name}"; }
 
         #endregion
 
@@ -34,8 +34,11 @@ namespace DMTools.View.ContentViewer
         public override FlowDocument GetDocument()
         {
             var result = new FlowDocument();
-            AddHeading1(result, $"{m_model.CharacterName}");
-            AddHeading2(result, $"{m_model.CharacterConcept}");
+            AddHeading1(result, $"{m_model.Name}");
+            AddHeading2(result, $"{m_model.Concept}");
+            if (m_model.Race != "" && m_model.Class != "") AddHeading2(result, $"{m_model.Race} - {m_model.Class}");
+            else if (m_model.Race != "") AddHeading2(result, $"{m_model.Race}");
+            else if (m_model.Class != "") AddHeading2(result, $"{m_model.Class}");
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             return result;

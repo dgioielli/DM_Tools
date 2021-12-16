@@ -18,6 +18,20 @@
             <StackPanel Grid.Row="1">
                 <TextBlock Text="Concept:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
                 <local_core:EditableTextBlock Text="{Binding Path=TXT_CharacterConcept, Mode=TwoWay}" Margin="5" FontSize="12" TextWrapping="Wrap" AcceptReturn="True" PlaceHolder="Concept..."/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Race:" Margin="5" FontSize="15" FontWeight="DemiBold" Grid.Column="0" Grid.Row="0"/>
+                    <local_core:SelectableTextBlock Text="{Binding Path=TXT_CharacterRace, Mode=TwoWay}" Margin="5" FontSize="12" PlaceHolder="Race..." Grid.Column="0" Grid.Row="1" x:Name="cbo_race" IsEditable="True"/>
+                    <TextBlock Text="Class:" Margin="5" FontSize="15" FontWeight="DemiBold" Grid.Column="1" Grid.Row="0"/>
+                    <local_core:SelectableTextBlock Text="{Binding Path=TXT_CharacterClass, Mode=TwoWay}" Margin="5" FontSize="12" PlaceHolder="Class..." Grid.Column="1" Grid.Row="1" x:Name="cbo_class" IsEditable="True"/>
+                </Grid>
                 <TextBlock Text="Notes:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
                 <StackPanel x:Name="pnl_notes"/>
 

@@ -21,9 +21,11 @@ namespace DMTools.View.CharacterEditor
         CharacterRepository Repository => CharacterRepository.GetInstance();
         CharacterModel m_model;
 
-        public string TXT_CharacterName { get => m_model.CharacterName; set { m_model.CharacterName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
-        public string TXT_CharacterConcept { get => m_model.CharacterConcept; set { m_model.CharacterConcept = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
-        public string WDW_Title => $"DM Tools - Section : {m_model.CharacterName}";
+        public string TXT_CharacterName { get => m_model.Name; set { m_model.Name = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
+        public string TXT_CharacterConcept { get => m_model.Concept; set { m_model.Concept = value; OnPropertyChanged(); } }
+        public string TXT_CharacterRace { get => m_model.Race; set { m_model.Race = value; OnPropertyChanged(); } }
+        public string TXT_CharacterClass { get => m_model.Class; set { m_model.Class = value; OnPropertyChanged(); } }
+        public string WDW_Title => $"DM Tools - Section : {m_model.Name}";
         public List<string> LST_Notes { get => m_model.Notes; }
 
         public ICommand BTN_Update { get; protected set; }

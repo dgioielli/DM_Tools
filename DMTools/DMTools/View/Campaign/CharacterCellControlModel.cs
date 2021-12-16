@@ -25,7 +25,7 @@ namespace DMTools.View.Campaign
         CharacterRepository Repository => CharacterRepository.GetInstance();
         CharacterModel m_model;
 
-        public string TXT_CharacterName { get => m_model.CharacterName; set { m_model.CharacterName = value; OnPropertyChanged(); } }
+        public string TXT_CharacterName { get => m_model.Name; set { m_model.Name = value; OnPropertyChanged(); } }
 
         public ICommand BTN_EditCharacter { get; protected set; }
         public ICommand BTN_DelCharacter { get; protected set; }

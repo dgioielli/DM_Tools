@@ -11,8 +11,10 @@ namespace DMTools.Models.SettingModels
         #region Variables and Properties
 
         public string ID { get; set; }
-        public string CharacterName { get; set; }
-        public string CharacterConcept { get; set; }
+        public string Name { get; set; }
+        public string Concept { get; set; }
+        public string Race { get; set; }
+        public string Class { get; set; }
         public List<string> Notes { get; protected set; }
 
 
@@ -23,8 +25,10 @@ namespace DMTools.Models.SettingModels
         public CharacterModel()
         {
             ID = "";
-            CharacterName = "";
-            CharacterConcept = "";
+            Name = "";
+            Concept = "";
+            Race = "";
+            Class = "";
             Notes = new List<string>();
         }
 
@@ -32,7 +36,7 @@ namespace DMTools.Models.SettingModels
 
         #region Functions
 
-        public override string ToString() => $"Character > {CharacterName}";
+        public override string ToString() => $"Character > {Name} :: {Race}//{Class}";
 
         #endregion
     }
