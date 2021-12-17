@@ -15,16 +15,16 @@ using System.Windows.Input;
 
 namespace DMTools.View.Campaign
 {
-    class SectionCellControlModel : DGViewModel
+    class SessionCellControlModel : DGViewModel
     {
         #region Variables and Properties
 
         ObserverManager Observer => ObserverManager.GetInstance();
 
-        SectionRepository Repository => SectionRepository.GetInstance();
-        SectionModel m_model;
+        SessionRepository Repository => SessionRepository.GetInstance();
+        SessionModel m_model;
 
-        public string TXT_SectionName { get => m_model.SectionName; set { m_model.SectionName = value; OnPropertyChanged(); } }
+        public string TXT_SectionName { get => m_model.SessionName; set { m_model.SessionName = value; OnPropertyChanged(); } }
 
         public ICommand BTN_EditSection { get; protected set; }
         public ICommand BTN_DelSection { get; protected set; }
@@ -34,7 +34,7 @@ namespace DMTools.View.Campaign
 
         #region Constructors
 
-        public SectionCellControlModel(SectionModel model)
+        public SessionCellControlModel(SessionModel model)
         {
             Update(model);
         }
@@ -43,7 +43,7 @@ namespace DMTools.View.Campaign
 
         #region Functions
 
-        internal void Update(SectionModel obj)
+        internal void Update(SessionModel obj)
         {
             m_model = obj;
             OnPropertyChanged(nameof(TXT_SectionName));
@@ -67,7 +67,7 @@ namespace DMTools.View.Campaign
         {
             if (MessageBox.Show($"Do you want to permanetly delete the section \"{TXT_SectionName}\"?", "DM Tools", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
-            Repository.DeleteSection(m_model);
+            Repository.DeleteSession(m_model);
         }
 
         private void UpdateSection()

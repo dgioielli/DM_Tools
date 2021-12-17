@@ -62,7 +62,7 @@ namespace DMTools.View.CharacterEditor
 
         private void UpdateSection()
         {
-            Repository.AddEditSection(m_model);
+            Repository.AddEditCharacter(m_model);
         }
 
         public void SetNotes(List<string> notes)

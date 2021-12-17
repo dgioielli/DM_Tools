@@ -1,4 +1,4 @@
-﻿using DMTools.Models.SectionModels;
+﻿using DMTools.Models.SessionModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace DMTools.Models
 {
-    public class SectionModel
+    public class SessionModel
     {
         #region Variables and Properties
 
         public string ID { get; set; }
-        public string SectionName { get; set; }
-        public string SectionIntro { get; set; }
+        public string SessionName { get; set; }
+        public string SessionIntro { get; set; }
         public List<PossibilityModel> Possibilities { get; protected set; }
-        public List<object> Characters { get; protected set; }
+        public List<SessionCharacterModel> Characters { get; protected set; }
         public List<object> Locations { get; protected set; }
         public List<object> Organizations { get; protected set; }
         public List<object> Encounters { get; protected set; }
@@ -26,13 +26,13 @@ namespace DMTools.Models
 
         #region Constructors
 
-        public SectionModel()
+        public SessionModel()
         {
             ID = "";
-            SectionName = "New Section";
-            SectionIntro = "";
+            SessionName = "New Section";
+            SessionIntro = "";
             Possibilities = new List<PossibilityModel>();
-            Characters = new List<object>();
+            Characters = new List<SessionCharacterModel>();
             Locations = new List<object>();
             Organizations = new List<object>();
             Encounters = new List<object>();
@@ -43,7 +43,7 @@ namespace DMTools.Models
 
         #region Functions
 
-        public override string ToString() => $"Section > {SectionName}";
+        public override string ToString() => $"Section > {SessionName}";
 
         #endregion
     }

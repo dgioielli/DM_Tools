@@ -15,6 +15,8 @@
     <None Remove="View\Campaign\3643763_list_mark_menu_option_sign_icon.png" />
     <None Remove="View\Campaign\4213478_plus_add_button_action_more_icon.png" />
     <None Remove="View\Campaign\7148741_clone_duplicate_copy_icon.png" />
+    <None Remove="View\SectionEditor\1904675_configuration_edit_gear_options_preferences_icon.png" />
+    <None Remove="View\SectionEditor\4781846_accept_check_checklist_circle_mark_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +32,8 @@
     <Resource Include="View\Campaign\3643763_list_mark_menu_option_sign_icon.png" />
     <Resource Include="View\Campaign\4213478_plus_add_button_action_more_icon.png" />
     <Resource Include="View\Campaign\7148741_clone_duplicate_copy_icon.png" />
+    <Resource Include="View\SectionEditor\1904675_configuration_edit_gear_options_preferences_icon.png" />
+    <Resource Include="View\SectionEditor\4781846_accept_check_checklist_circle_mark_icon.png" />
   </ItemGroup>
 
   <ItemGroup>

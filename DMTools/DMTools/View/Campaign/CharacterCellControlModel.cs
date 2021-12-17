@@ -68,7 +68,7 @@ namespace DMTools.View.Campaign
         {
             if (MessageBox.Show($"Do you want to permanetly delete the section \"{TXT_CharacterName}\"?", "DM Tools", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
-            Repository.DeleteSection(m_model);
+            Repository.DeleteCharacter(m_model);
         }
 
         private void UpdateCharacter()

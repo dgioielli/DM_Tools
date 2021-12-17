@@ -27,7 +27,7 @@ namespace DMTools.View.Campaign
         private const int KEY_NumColSections = 4;
 
         ObserverManager Observer => ObserverManager.GetInstance();
-        Pool<SectionCellControl, SectionModel> m_poolSections = new Pool<SectionCellControl, SectionModel>();
+        Pool<SectionCellControl, SessionModel> m_poolSections = new Pool<SectionCellControl, SessionModel>();
 
         CampaignViewModel m_vm = new CampaignViewModel();
 

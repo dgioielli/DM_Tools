@@ -2,7 +2,7 @@
 using DMTools.Keys;
 using DMTools.Managers;
 using DMTools.Models;
-using DMTools.Models.SectionModels;
+using DMTools.Models.SessionModels;
 using DMTools.View.Components.Core;
 using System;
 using System.Collections.Generic;
@@ -29,25 +29,28 @@ namespace DMTools.View.SectionEditor
 
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
         PoolGeneric<PossibilityCellControl, PossibilityModel> m_poolPossibilities;
+        PoolGeneric<SessionCharacterCellControl, SessionCharacterModel> m_poolCharacters;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
 
-        SectionEditorViewModel m_vm;
+        SessionEditorViewModel m_vm;
 
         #endregion
 
         #region Constructors
 
-        public SectionEditorView(SectionModel model)
+        public SectionEditorView(SessionModel model)
         {
             InitializeComponent();
             m_poolNotes = new PoolGeneric<EditableTextBlock, string>(NewNote, RefreshNote);
             m_poolPossibilities = new PoolGeneric<PossibilityCellControl, PossibilityModel>(NewPossibility, RefreshPossibility);
-            m_vm = new SectionEditorViewModel(model);
+            m_poolCharacters = new PoolGeneric<SessionCharacterCellControl, SessionCharacterModel>(NewCharacter, RefreshCharacter);
+            m_vm = new SessionEditorViewModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
             ShowNotes();
             ShowPossibilities();
+            ShowCharacters();
         }
 
         #endregion
@@ -59,6 +62,7 @@ namespace DMTools.View.SectionEditor
             if (e.PropertyName == PropertyEventKeys.Close) Close();
             else if (e.PropertyName == nameof(m_vm.LST_Notes)) ShowNotes();
             else if (e.PropertyName == nameof(m_vm.LST_Possibilities)) ShowPossibilities();
+            else if (e.PropertyName == nameof(m_vm.LST_Characters)) ShowCharacters();
         }
 
         private void SetActions()
@@ -102,8 +106,7 @@ namespace DMTools.View.SectionEditor
 
         private void ShowPossibilities()
         {
-            var list = m_vm.LST_Possibilities;
-            var possibilities = m_poolPossibilities.GetObjects(list);
+            var possibilities = m_poolPossibilities.GetObjects(m_vm.LST_Possibilities);
             pnl_possibilities.Children.Clear();
             possibilities.ForEach(x => pnl_possibilities.Children.Add(x));
         }
@@ -114,15 +117,21 @@ namespace DMTools.View.SectionEditor
             return arg1;
         }
 
-        private PossibilityCellControl NewPossibility(PossibilityModel arg)
+        private PossibilityCellControl NewPossibility(PossibilityModel arg) => new PossibilityCellControl(arg, m_vm.Update);
+
+        private void ShowCharacters()
         {
-            var result = new PossibilityCellControl(arg, OnPossibilityChanged);
-            return result;
+            var list = m_poolCharacters.GetObjects(m_vm.LST_Characters);
+            pnl_characters.Children.Clear();
+            list.ForEach(x => pnl_characters.Children.Add(x));
         }
 
-        private void OnPossibilityChanged()
+        private SessionCharacterCellControl NewCharacter(SessionCharacterModel arg) => new SessionCharacterCellControl(arg, m_vm.Update);
+
+        private SessionCharacterCellControl RefreshCharacter(SessionCharacterCellControl arg1, SessionCharacterModel arg2)
         {
-            m_vm.Update();
+            arg1.Update(arg2);
+            return arg1;
         }
 
         #endregion

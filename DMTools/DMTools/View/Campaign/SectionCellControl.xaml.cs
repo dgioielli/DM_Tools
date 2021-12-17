@@ -21,23 +21,23 @@ namespace DMTools.View.Campaign
     /// <summary>
     /// Interação lógica para SectionCellControl.xam
     /// </summary>
-    public partial class SectionCellControl : UserControl, IReusablePool<SectionModel>
+    public partial class SectionCellControl : UserControl, IReusablePool<SessionModel>
     {
         #region Variables and Properties
 
-        SectionCellControlModel m_vm;
+        SessionCellControlModel m_vm;
 
         #endregion
 
         #region Constructors
 
-        public SectionCellControl() : this(new SectionModel())
+        public SectionCellControl() : this(new SessionModel())
         { }
 
-        public SectionCellControl(SectionModel model)
+        public SectionCellControl(SessionModel model)
         {
             InitializeComponent(); 
-            m_vm = new SectionCellControlModel(model);
+            m_vm = new SessionCellControlModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
@@ -64,7 +64,7 @@ namespace DMTools.View.Campaign
 
         #region Functions
 
-        public void Update(SectionModel obj) => m_vm.Update(obj);
+        public void Update(SessionModel obj) => m_vm.Update(obj);
 
         private void ShowButtons(bool show)
         {

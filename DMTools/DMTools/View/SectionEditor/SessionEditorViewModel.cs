@@ -2,7 +2,7 @@
 using DMTools.Keys;
 using DMTools.Managers;
 using DMTools.Models;
-using DMTools.Models.SectionModels;
+using DMTools.Models.SessionModels;
 using DMTools.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,22 +13,24 @@ using System.Windows.Input;
 
 namespace DMTools.View.SectionEditor
 {
-    class SectionEditorViewModel : DGViewModel
+    class SessionEditorViewModel : DGViewModel
     {
         #region Variables and Properties
 
         ObserverManager Observer => ObserverManager.GetInstance();
 
-        SectionRepository Repository => SectionRepository.GetInstance();
-        SectionModel m_model;
+        SessionRepository Repository => SessionRepository.GetInstance();
+        SessionModel m_model;
 
         List<PossibilityModel> m_possibilities = new List<PossibilityModel>();
+        List<SessionCharacterModel> m_characters = new List<SessionCharacterModel>();
 
-        public string TXT_SectionName { get => m_model.SectionName; set { m_model.SectionName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
-        public string TXT_SectionIntro { get => m_model.SectionIntro; set { m_model.SectionIntro = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
-        public string WDW_Title { get => $"DM Tools - Section : {m_model.SectionName}"; }
+        public string TXT_SectionName { get => m_model.SessionName; set { m_model.SessionName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
+        public string TXT_SectionIntro { get => m_model.SessionIntro; set { m_model.SessionIntro = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
+        public string WDW_Title { get => $"DM Tools - Section : {m_model.SessionName}"; }
         public List<string> LST_Notes { get => m_model.Notes; }
         public List<PossibilityModel> LST_Possibilities { get => m_possibilities; }
+        public List<SessionCharacterModel> LST_Characters { get => m_characters; }
 
         public ICommand BTN_Update { get; protected set; }
         public ICommand BTN_Conclude { get; protected set; }
@@ -38,11 +40,13 @@ namespace DMTools.View.SectionEditor
 
         #region Constructors
 
-        public SectionEditorViewModel(SectionModel model)
+        public SessionEditorViewModel(SessionModel model)
         {
             m_model = model;
             m_possibilities.Clear();
             m_model.Possibilities.ForEach(x => m_possibilities.Add(new PossibilityModel(x)));
+            m_characters.Clear();
+            m_model.Characters.ForEach(x => m_characters.Add(new SessionCharacterModel(x)));
         }
 
         #endregion
@@ -52,17 +56,30 @@ namespace DMTools.View.SectionEditor
         public void Update()
         {
             UpdatePossibilities();
+            UpdateCharacters();
             OnPropertyChanged(nameof(TXT_SectionName));
             OnPropertyChanged(nameof(TXT_SectionIntro));
             OnPropertyChanged(nameof(LST_Notes));
             OnPropertyChanged(nameof(LST_Possibilities));
+            OnPropertyChanged(nameof(LST_Characters));
         }
 
         private void UpdatePossibilities()
         {
-            var empties = m_possibilities.FindAll(x => x.Text.Trim() == "");
-            empties.ForEach(x => m_possibilities.Remove(x));
+            ClearList(m_possibilities, x => x.Text.Trim() == "");
             m_possibilities.Add(new PossibilityModel());
+        }
+        
+        private void ClearList<T>(List<T> list, Func<T, bool> checkFunc)
+        {
+            var empties = list.FindAll(x => checkFunc(x));
+            empties.ForEach(x => list.Remove(x));
+        }
+
+        private void UpdateCharacters()
+        {
+            ClearList(m_characters, x => x.CharacterId.Trim() == "" && x.Info == "");
+            m_characters.Add(new SessionCharacterModel());
         }
 
         protected override void assinarComandos()
@@ -75,11 +92,16 @@ namespace DMTools.View.SectionEditor
 
         private void UpdateSection()
         {
-            m_model.Possibilities.Clear();
-            var empties = m_possibilities.FindAll(x => x.Text.Trim() == "");
-            empties.ForEach(x => m_possibilities.Remove(x));
-            m_model.Possibilities.AddRange(m_possibilities);
-            Repository.AddEditSection(m_model);
+            UpdateList(m_model.Possibilities, m_possibilities, x => x.Text.Trim() == "");
+            UpdateList(m_model.Characters, m_characters, x => x.CharacterId.Trim() == "" && x.Info == "");
+            Repository.AddEditSession(m_model);
+        }
+
+        private void UpdateList<T>(List<T> originalList, List<T> currentList, Func<T, bool> checkFunc)
+        {
+            originalList.Clear();
+            ClearList(currentList, checkFunc);
+            originalList.AddRange(currentList);
         }
 
         public void SetNotes(List<string> notes)

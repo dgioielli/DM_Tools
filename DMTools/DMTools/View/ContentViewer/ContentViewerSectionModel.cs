@@ -1,7 +1,9 @@
 ﻿using DMTools.Keys;
 using DMTools.Managers.Observers;
 using DMTools.Models;
+using DMTools.Models.SessionModels;
 using DMTools.Repositories;
+using DMTools.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace DMTools.View.ContentViewer
 {
@@ -16,17 +19,18 @@ namespace DMTools.View.ContentViewer
     {
         #region Variables and Properties
 
-        SectionRepository Repository => SectionRepository.GetInstance();
+        SessionRepository Repository => SessionRepository.GetInstance();
+        CharacterRepository CharRepository => CharacterRepository.GetInstance();
 
-        SectionModel m_model;
+        SessionModel m_model;
 
-        public string WDW_Title { get => $"DM Tools - Section : {m_model.SectionName}"; }
+        public string WDW_Title { get => $"DM Tools - Section : {m_model.SessionName}"; }
 
         #endregion
 
         #region Constructors
 
-        public ContentViewerSectionModel(SectionModel model)
+        public ContentViewerSectionModel(SessionModel model)
         { m_model = model; }
 
         #endregion
@@ -36,11 +40,13 @@ namespace DMTools.View.ContentViewer
         public override FlowDocument GetDocument()
         {
             var result = new FlowDocument();
-            AddHeading1(result, $"{m_model.SectionName}");
+            AddHeading1(result, $"{m_model.SessionName}");
             AddHeading2(result, $"Introduction:");
-            AddText(result, $"{m_model.SectionIntro}");
+            AddText(result, $"{m_model.SessionIntro}");
             AddHeading2(result, $"Possibilities:");
             m_model.Possibilities.ForEach(x => { if (x.WasIgnored) AddStrikeoutText(result, x.Text); else AddText(result, x.Text); });
+            AddHeading2(result, $"NPCs:");
+            m_model.Characters.ForEach(x => AddText(result, FlowDocumentService.GetSessionCharacterRuns(x)));
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             return result;

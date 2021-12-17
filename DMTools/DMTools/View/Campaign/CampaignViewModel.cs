@@ -19,13 +19,13 @@ namespace DMTools.View.Campaign
         #region Variables and Properties
 
         CampaignRepository Repository => CampaignRepository.GetInstance();
-        SectionRepository SectionRepository => SectionRepository.GetInstance();
+        SessionRepository SectionRepository => SessionRepository.GetInstance();
         CampaignModel m_model;
 
         public string TXT_CampaignName { get => m_model.CampaignName; set { m_model.CampaignName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
         public string WDW_Title { get => $"DM Tools - Campaign : {m_model.CampaignName}"; }
 
-        public List<SectionModel> LST_Sections { get => m_model.Sections; }
+        public List<SessionModel> LST_Sections { get => m_model.Sessions; }
 
         public ICommand BTN_SAVE { get; protected set; }
         public ICommand BTN_NewSection { get; protected set; }
@@ -52,7 +52,7 @@ namespace DMTools.View.Campaign
 
         private void NewSection()
         {
-            var dlg = new SectionEditorView(SectionRepository.GetNewSection());
+            var dlg = new SectionEditorView(SectionRepository.GetNewSession());
             dlg.Show();
         }
 

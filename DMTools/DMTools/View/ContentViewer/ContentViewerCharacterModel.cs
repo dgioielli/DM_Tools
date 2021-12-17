@@ -1,4 +1,5 @@
 ﻿using DMTools.Keys;
+using DMTools.Models.SessionModels;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using System;
@@ -15,6 +16,7 @@ namespace DMTools.View.ContentViewer
         #region Variables and Properties
 
         CharacterRepository Repository => CharacterRepository.GetInstance();
+        SessionRepository SessionRepository => SessionRepository.GetInstance();
 
         CharacterModel m_model;
 
@@ -41,12 +43,32 @@ namespace DMTools.View.ContentViewer
             else if (m_model.Class != "") AddHeading2(result, $"{m_model.Class}");
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
+            AddHeading2(result, $"Session mentions:");
+            AddList(result, GetSessionMentions());
+            return result;
+        }
+
+        private List<string> GetSessionMentions()
+        {
+            var result = new List<string>();
+
+            var list = new List<Tuple<SessionCharacterModel, string>>();
+            SessionRepository.Sessions.ForEach(x => x.Characters.ForEach(c => { if (c.CharacterId == m_model.ID) list.Add(new Tuple<SessionCharacterModel, string>(c, x.SessionName)); }));
+            for (int i = 0; i < list.Count; i++)
+            {
+                var duplicated = list.FindAll(x => x != list[i] && x.Item1.Info == list[i].Item1.Info);
+                var sessions = $"{list[i].Item2}";
+                duplicated.ForEach(x => sessions = $"{sessions}, {x.Item2}");
+                duplicated.ForEach(x => list.Remove(x));
+                result.Add($"{sessions} - {list[i].Item1.Info}");
+            }
+
             return result;
         }
 
         public override void Update()
         {
-            var model = Repository.GetSectionById(m_model.ID);
+            var model = Repository.GetCharacterById(m_model.ID);
             m_model = model;
             if (model == null) OnPropertyChanged(PropertyEventKeys.Close);
             else OnPropertyChanged(nameof(GetDocument));

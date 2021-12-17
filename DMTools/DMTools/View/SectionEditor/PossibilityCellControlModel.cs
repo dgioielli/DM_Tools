@@ -1,7 +1,7 @@
 ﻿using DMTools.CoreLib.ViewModel;
 using DMTools.Managers;
 using DMTools.Models;
-using DMTools.Models.SectionModels;
+using DMTools.Models.SessionModels;
 using DMTools.Repositories;
 using System;
 using System.Collections.Generic;

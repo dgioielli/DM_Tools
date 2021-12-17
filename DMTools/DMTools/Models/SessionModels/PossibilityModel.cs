@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DMTools.Models.SectionModels
+namespace DMTools.Models.SessionModels
 {
     public class PossibilityModel
     {

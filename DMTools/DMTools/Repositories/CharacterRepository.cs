@@ -43,31 +43,31 @@ namespace DMTools.Repositories
         private string GetNewID()
         {
             var now = DateTime.Now;
-            return $"Section:{now.Year}_{now.Month}_{now.Day}_{now.Hour}_{now.Minute}_{now.Second}_{now.Millisecond}";
+            return $"Character:{now.Year}_{now.Month}_{now.Day}_{now.Hour}_{now.Minute}_{now.Second}_{now.Millisecond}";
         }
 
-        internal void AddEditSection(CharacterModel model)
+        internal void AddEditCharacter(CharacterModel model)
         {
-            if (!Characters.Exists(x => x.ID == model.ID)) AddSection(model);
-            else EditSection(model, Characters.Find(x => x.ID == model.ID));
+            if (!Characters.Exists(x => x.ID == model.ID)) AddCharacter(model);
+            else EditCharacter(model, Characters.Find(x => x.ID == model.ID));
         }
 
-        internal CharacterModel GetSectionById(string id) => Characters.Find(x => x.ID == id);
+        internal CharacterModel GetCharacterById(string id) => Characters.Find(x => x.ID == id);
 
-        private void EditSection(CharacterModel model, CharacterModel oldModel)
+        private void EditCharacter(CharacterModel model, CharacterModel oldModel)
         {
             Characters.Remove(oldModel);
-            AddSection(model);
+            AddCharacter(model);
         }
 
-        private void AddSection(CharacterModel model)
+        private void AddCharacter(CharacterModel model)
         {
             Characters.Add(model);
             Repository.Model.Update();
             Observer.UpdateGeneralObserver();
         }
 
-        internal void DeleteSection(CharacterModel model)
+        internal void DeleteCharacter(CharacterModel model)
         {
             Characters.Remove(model);
             Observer.UpdateGeneralObserver();

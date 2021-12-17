@@ -12,7 +12,7 @@ namespace DMTools.Models
 
         public string CampaignName { get; set; }
         public CampaignSettingModel Setting { get; set; }
-        public List<SectionModel> Sections { get; protected set; }
+        public List<SessionModel> Sessions { get; protected set; }
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace DMTools.Models
         {
             CampaignName = "";
             Setting = new CampaignSettingModel();
-            Sections = new List<SectionModel>();
+            Sessions = new List<SessionModel>();
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace DMTools.Models
 
         internal void Update()
         {
-            Sections = Sections.OrderBy(x => x.ID).ToList();
+            Sessions = Sessions.OrderBy(x => x.ID).ToList();
         }
 
         #endregion

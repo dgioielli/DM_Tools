@@ -20,6 +20,8 @@
                 <local_core:EditableTextBlock Text="{Binding Path=TXT_SectionIntro, Mode=TwoWay}" Margin="5" FontSize="12" TextWrapping="Wrap" AcceptReturn="True" PlaceHolder="Introduction..."/>
                 <TextBlock Text="Possibilities:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
                 <StackPanel x:Name="pnl_possibilities"/>
+                <TextBlock Text="Characters:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
+                <StackPanel x:Name="pnl_characters"/>
                 <TextBlock Text="Notes:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
                 <StackPanel x:Name="pnl_notes"/>
 

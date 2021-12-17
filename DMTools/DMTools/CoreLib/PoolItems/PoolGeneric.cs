@@ -35,7 +35,12 @@ namespace DMTools.CoreLib.PoolItems
             for (int i = 0; i < list.Count; i++)
             {
                 if (i < m_pool.Count) result.Add(m_refreshObject(m_pool[i], list[i]));
-                else result.Add(m_newObject(list[i]));
+                else
+                {
+                    var obj = m_newObject(list[i]);
+                    result.Add(obj);
+                    m_pool.Add(obj);
+                }
             }
             return result;
         }
