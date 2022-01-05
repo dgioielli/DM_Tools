@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace DMTools.Models.SettingModels
 {
-    public class CharacterModel : IObjectSetting
+    public class OrganizationModel : IObjectSetting
     {
         #region Variables and Properties
 
         public string ID { get; set; }
         public string Name { get; set; }
         public string Concept { get; set; }
-        public string Race { get; set; }
-        public string Class { get; set; }
-        public string Clan { get; set; }
+        public string OrganizationType { get; set; }
         public List<string> Notes { get; protected set; }
 
 
@@ -23,14 +21,12 @@ namespace DMTools.Models.SettingModels
 
         #region Constructors
 
-        public CharacterModel()
+        public OrganizationModel()
         {
             ID = "";
             Name = "";
             Concept = "";
-            Race = "";
-            Class = "";
-            Clan = "";
+            OrganizationType = "";
             Notes = new List<string>();
         }
 
@@ -38,7 +34,7 @@ namespace DMTools.Models.SettingModels
 
         #region Functions
 
-        public override string ToString() => $"Character > {Name} :: {Race}//{Class}";
+        public override string ToString() => $"Character > {Name} :: {OrganizationType}//{Concept}";
 
         #endregion
     }

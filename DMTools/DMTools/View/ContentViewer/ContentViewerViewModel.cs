@@ -51,6 +51,10 @@ namespace DMTools.View.ContentViewer
 
         protected void AddHeading2(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, 20, FontWeights.Bold);
 
+        protected void AddHeading3(FlowDocument result, string text) => AddHeading3(result, new Run(text));
+
+        protected void AddHeading3(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines, 16, FontWeights.Bold, decoration: TextDecorations.Underline);
+
         protected void AddText(FlowDocument result, string text) => AddText(result, new Run(text));
 
         protected void AddText(FlowDocument result, params Inline[] inlines) => AddParagraph(result, inlines);

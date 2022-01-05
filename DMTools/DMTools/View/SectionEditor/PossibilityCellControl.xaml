@@ -13,6 +13,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <CheckBox Margin="3" VerticalAlignment="Center" IsChecked="{Binding Path=CHK_WasIgnored}"/>
-        <local_core:EditableTextBlock Text="{Binding Path=TXT_PossibilityText, Mode=TwoWay}" Grid.Column="1" PlaceHolder="Possibility..." Margin="3" AcceptReturn="True" TextWrapping="Wrap" x:Name="txt_possibility"/>
+        <local_core:EditableTextBlock Text="{Binding Path=TXT_PossibilityText, Mode=TwoWay}" Grid.Column="1" PlaceHolder="Possibility..." Margin="3" AcceptReturn="True" TextWrapping="Wrap" x:Name="txt_possibility" Focusable="True"/>
     </Grid>
 </UserControl>

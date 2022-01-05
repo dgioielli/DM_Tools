@@ -48,6 +48,7 @@ namespace DMTools.View.CharacterEditor
             ShowNotes();
             cbo_race.SetOptions(Repository.GetAllRaces());
             cbo_class.SetOptions(Repository.GetAllClass());
+            cbo_clan.SetOptions(Repository.GetAllClans());
         }
 
         #endregion
@@ -86,7 +87,7 @@ namespace DMTools.View.CharacterEditor
 
         private EditableTextBlock NewNote(string text)
         {
-            var ed = new EditableTextBlock() { AcceptReturn = true, PlaceHolder = "+ + + New Note + + +", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(5) };
+            var ed = new EditableTextBlock() { AcceptReturn = true, PlaceHolder = "+ + + New Note + + +", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(5), Focusable = true };
             ed.Text = text;
             ed.OnTextChanged += OnNoteChanged;
             return ed;

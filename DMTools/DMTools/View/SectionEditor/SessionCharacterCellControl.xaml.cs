@@ -45,6 +45,7 @@ namespace DMTools.View.SectionEditor
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
             SetCharacters();
+            LoadCboRole();
             Update(model);
             UpdateControl();
         }
@@ -57,17 +58,27 @@ namespace DMTools.View.SectionEditor
         {
             if (e.PropertyName == nameof(m_vm.TXT_Info)) txt_info.Text = m_vm.TXT_Info;
             else if (e.PropertyName == nameof(m_vm.Character)) SetCharacter();
+            else if (e.PropertyName == nameof(m_vm.CBO_Index_Role)) cbo_role.SelectedIndex = m_vm.CBO_Index_Role;
         }
 
         private void SetActions()
         {
             btn_save.Click += (sender, e) => SaveCharacter();
             btn_edit.Click += (sender, e) => { isEditorMode = true; UpdateControl(); };
+            cbo_role.SelectionChanged += (sender, e) => m_vm.CBO_Index_Role = cbo_role.SelectedIndex;
         }
 
         #endregion
 
         #region Functions
+
+        private void LoadCboRole()
+        {
+            cbo_role.Items.Add("Aliado");
+            cbo_role.Items.Add("Inimigo");
+            cbo_role.Items.Add("Neutro");
+            cbo_role.Items.Add("Secundário");
+        }
 
         private void UpdateControl()
         {
@@ -84,6 +95,8 @@ namespace DMTools.View.SectionEditor
             stt_char.Visibility = editor;
             stt_info.Visibility = editor;
             btn_save.Visibility = editor;
+            stt_role.Visibility = editor;
+            cbo_role.Visibility = editor;
         }
 
         private void SaveCharacter()

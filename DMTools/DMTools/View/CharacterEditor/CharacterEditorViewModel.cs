@@ -25,6 +25,7 @@ namespace DMTools.View.CharacterEditor
         public string TXT_CharacterConcept { get => m_model.Concept; set { m_model.Concept = value; OnPropertyChanged(); } }
         public string TXT_CharacterRace { get => m_model.Race; set { m_model.Race = value; OnPropertyChanged(); } }
         public string TXT_CharacterClass { get => m_model.Class; set { m_model.Class = value; OnPropertyChanged(); } }
+        public string TXT_CharacterClan { get => m_model.Clan; set { m_model.Clan = value; OnPropertyChanged(); } }
         public string WDW_Title => $"DM Tools - Section : {m_model.Name}";
         public List<string> LST_Notes { get => m_model.Notes; }
 

@@ -1,4 +1,5 @@
 ﻿using DMTools.CoreLib.ViewModel;
+using DMTools.Keys;
 using DMTools.Models.SessionModels;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
@@ -20,6 +21,7 @@ namespace DMTools.View.SectionEditor
 
         public string TXT_Info { get => m_model.Info; set { m_model.Info = value; OnPropertyChanged(); } }
         public CharacterModel Character { get => CharRepository.GetCharacterById(m_model.CharacterId); set => m_model.CharacterId = value.ID; }
+        public int CBO_Index_Role { get => (int)m_model.Role; set { m_model.Role = (ECharacterRoleKeys)value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -39,6 +41,7 @@ namespace DMTools.View.SectionEditor
             m_model = obj;
             OnPropertyChanged(nameof(TXT_Info));
             OnPropertyChanged(nameof(Character));
+            OnPropertyChanged(nameof(CBO_Index_Role));
         }
 
         protected override void assinarComandos()

@@ -25,7 +25,7 @@ namespace DMTools.View.Campaign
         public string TXT_CampaignName { get => m_model.CampaignName; set { m_model.CampaignName = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
         public string WDW_Title { get => $"DM Tools - Campaign : {m_model.CampaignName}"; }
 
-        public List<SessionModel> LST_Sections { get => m_model.Sessions; }
+        public List<SessionModel> LST_Sections { get => m_model.Sessions.OrderBy(x => x.SessionName).ToList(); }
 
         public ICommand BTN_SAVE { get; protected set; }
         public ICommand BTN_NewSection { get; protected set; }

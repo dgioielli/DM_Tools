@@ -9,6 +9,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -16,15 +18,17 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Name="stt_Text" Margin="5" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Name="stt_Text" Margin="5" TextWrapping="Wrap"/>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Character: "  VerticalAlignment="Center" Margin="3" Name="stt_char"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Role: "  VerticalAlignment="Center" Margin="3" Name="stt_role"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Information: "  VerticalAlignment="Center" Margin="3" Name="stt_info"/>
         <ComboBox Grid.Row="0" Grid.Column="1" Text="Character: "  VerticalAlignment="Center" Margin="3" Name="cbo_character"/>
-        <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3" AcceptsReturn="True" TextWrapping="Wrap" Name="txt_info"/>
-        <Button Grid.Column="2" Name="btn_edit">
+        <ComboBox Grid.Row="0" Grid.Column="3" Text="Character: "  VerticalAlignment="Center" Margin="3" Name="cbo_role"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="3" AcceptsReturn="True" TextWrapping="Wrap" Name="txt_info"/>
+        <Button Grid.Column="4" Name="btn_edit" Margin="3" VerticalAlignment="Top">
             <Image Source="/View/SectionEditor/1904675_configuration_edit_gear_options_preferences_icon.png" Width="24" Height="24"/>
         </Button>
-        <Button Grid.Column="2" Name="btn_save">
+        <Button Grid.Column="4" Name="btn_save" Margin="3" VerticalAlignment="Top">
             <Image Source="/View/SectionEditor/4781846_accept_check_checklist_circle_mark_icon.png" Width="24" Height="24"/>
         </Button>
     </Grid>

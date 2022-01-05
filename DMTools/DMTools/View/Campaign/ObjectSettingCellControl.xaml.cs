@@ -1,5 +1,4 @@
-﻿using DMTools.Models;
-using DMTools.Models.SettingModels;
+﻿using DMTools.Models.SettingModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,22 +17,22 @@ using System.Windows.Shapes;
 namespace DMTools.View.Campaign
 {
     /// <summary>
-    /// Interação lógica para CharacterCellControl.xam
+    /// Interação lógica para ObjectSettingCellControl.xam
     /// </summary>
-    public partial class CharacterCellControl : UserControl
+    public partial class ObjectSettingCellControl : UserControl
     {
         #region Variables and Properties
 
-        CharacterCellControlModel m_vm;
+        ObjectSettingCellControlModel m_vm;
 
         #endregion
 
         #region Constructors
 
-        public CharacterCellControl(CharacterModel model)
+        public ObjectSettingCellControl(ObjectSettingModel model)
         {
             InitializeComponent();
-            m_vm = new CharacterCellControlModel(model);
+            m_vm = new ObjectSettingCellControlModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
@@ -60,7 +59,7 @@ namespace DMTools.View.Campaign
 
         #region Functions
 
-        public void Update(CharacterModel obj) => m_vm.Update(obj);
+        public void Update(ObjectSettingModel obj) => m_vm.Update(obj);
 
         private void ShowButtons(bool show)
         {

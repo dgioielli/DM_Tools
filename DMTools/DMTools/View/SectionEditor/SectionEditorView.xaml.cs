@@ -91,7 +91,7 @@ namespace DMTools.View.SectionEditor
 
         private EditableTextBlock NewNote(string text)
         {
-            var ed = new EditableTextBlock() { AcceptReturn = true, PlaceHolder = "+ + + New Note + + +", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(5) };
+            var ed = new EditableTextBlock() { AcceptReturn = true, PlaceHolder = "+ + + New Note + + +", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(5), Focusable = true };
             ed.Text = text;
             ed.OnTextChanged += OnNoteChanged;
             return ed;

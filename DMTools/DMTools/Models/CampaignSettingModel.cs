@@ -13,6 +13,8 @@ namespace DMTools.Models
 
         public string SettingName { get; set; }
         public List<CharacterModel> Characters { get; set; }
+        public List<OrganizationModel> Organizations { get; set; }
+        public List<LocationModel> Locations { get; set; }
 
         #endregion
 
@@ -21,6 +23,8 @@ namespace DMTools.Models
         public CampaignSettingModel()
         {
             Characters = new List<CharacterModel>();
+            Organizations = new List<OrganizationModel>();
+            Locations = new List<LocationModel>();
         }
 
         #endregion

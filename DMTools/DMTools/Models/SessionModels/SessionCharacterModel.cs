@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMTools.Keys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,21 +13,23 @@ namespace DMTools.Models.SessionModels
 
         public string CharacterId { get; set; }
         public string Info { get; set; }
+        public ECharacterRoleKeys Role { get; set; }
 
         #endregion
 
         #region Constructors
 
-        public SessionCharacterModel() : this("", "")
+        public SessionCharacterModel() : this("", "", ECharacterRoleKeys.Secondary)
         { }
 
-        public SessionCharacterModel(string characterId, string info)
+        public SessionCharacterModel(string characterId, string info, ECharacterRoleKeys role)
         {
             CharacterId = characterId;
             Info = info;
+            Role = role;
         }
 
-        public SessionCharacterModel(SessionCharacterModel x) : this(x.CharacterId, x.Info)
+        public SessionCharacterModel(SessionCharacterModel x) : this(x.CharacterId, x.Info, x.Role)
         { }
 
         #endregion

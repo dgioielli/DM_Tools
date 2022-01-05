@@ -20,6 +20,7 @@ namespace DMTools.View.SectionEditor
         ObserverManager Observer => ObserverManager.GetInstance();
 
         SessionRepository Repository => SessionRepository.GetInstance();
+        CharacterRepository CharRepository => CharacterRepository.GetInstance();
         SessionModel m_model;
 
         List<PossibilityModel> m_possibilities = new List<PossibilityModel>();
@@ -92,9 +93,17 @@ namespace DMTools.View.SectionEditor
 
         private void UpdateSection()
         {
+            m_characters = m_characters.OrderBy(x => x.Role).ThenBy(x => GetCharName(x.CharacterId)).ToList();
             UpdateList(m_model.Possibilities, m_possibilities, x => x.Text.Trim() == "");
             UpdateList(m_model.Characters, m_characters, x => x.CharacterId.Trim() == "" && x.Info == "");
             Repository.AddEditSession(m_model);
+        }
+
+        private string GetCharName(string characterId)
+        {
+            var c = CharRepository.GetCharacterById(characterId);
+            if (c == null) return "";
+            return c.Name;
         }
 
         private void UpdateList<T>(List<T> originalList, List<T> currentList, Func<T, bool> checkFunc)

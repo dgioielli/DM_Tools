@@ -81,6 +81,7 @@ namespace DMTools.View.Components.Core
         {
             this.MouseDoubleClick += (sender, e) => ShowEditor();
             txt_text.LostFocus += (sender, e) => HideEditor();
+            this.GotFocus += (sender, e) => ShowEditor();
         }
 
         private void ShowEditor()

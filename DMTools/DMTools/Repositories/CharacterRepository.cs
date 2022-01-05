@@ -93,20 +93,20 @@ namespace DMTools.Repositories
             result.Concept = model.Concept;
             result.Class = model.Class;
             result.Race = model.Race;
+            result.Clan = model.Clan;
             model.Notes.ForEach(x => result.Notes.Add(x));
         }
 
-        internal List<string> GetAllClass()
-        {
-            var result = new List<string>();
-            Characters.ForEach(x => result.Add(x.Class));
-            return result.Distinct().OrderBy(x => x).ToList();
-        }
+        internal List<string> GetAllClass() => GetAllData(x => x.Class);
 
-        internal List<string> GetAllRaces()
+        internal List<string> GetAllRaces() => GetAllData(x => x.Race);
+
+        internal List<string> GetAllClans() => GetAllData(x => x.Clan);
+
+        protected List<string> GetAllData(Func<CharacterModel, string> getData)
         {
             var result = new List<string>();
-            Characters.ForEach(x => result.Add(x.Race));
+            Characters.ForEach(x => result.Add(getData(x)));
             return result.Distinct().OrderBy(x => x).ToList();
         }
 

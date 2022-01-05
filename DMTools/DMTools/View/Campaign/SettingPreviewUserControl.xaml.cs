@@ -1,6 +1,9 @@
 ﻿using DMTools.CoreLib.PoolItems;
 using DMTools.Managers;
 using DMTools.Models.SettingModels;
+using DMTools.Repositories;
+using DMTools.View.CharacterEditor;
+using DMTools.View.ContentViewer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +29,8 @@ namespace DMTools.View.Campaign
         #region Variables and Properties
 
         ObserverManager Observer => ObserverManager.GetInstance();
-        PoolGeneric<CharacterCellControl, CharacterModel> m_poolCharacters;
+        CharacterRepository CharRepository => CharacterRepository.GetInstance();
+        PoolGeneric<ObjectSettingCellControl, ObjectSettingModel> m_poolCharacters;
 
         SettingPreviewUserControlModel m_vm = new SettingPreviewUserControlModel();
 
@@ -38,7 +42,7 @@ namespace DMTools.View.Campaign
         {
             InitializeComponent();
             Observer.RegisterGeneralObserver(m_vm);
-            m_poolCharacters = new PoolGeneric<CharacterCellControl, CharacterModel>(newCharacter, refreshCharacter);
+            m_poolCharacters = new PoolGeneric<ObjectSettingCellControl, ObjectSettingModel>(newCharacter, refreshCharacter);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
@@ -77,7 +81,7 @@ namespace DMTools.View.Campaign
         private void ShowCharacters()
         {
             ClearGridCharacters();
-            var list = m_poolCharacters.GetObjects(m_vm.LST_Characters);
+            var list = m_poolCharacters.GetObjects(getObjects(m_vm.LST_Characters));
             for (int i = 0; i < list.Count; i++)
             {
                 int col = i % 5;
@@ -89,13 +93,20 @@ namespace DMTools.View.Campaign
             }
         }
 
-        private CharacterCellControl refreshCharacter(CharacterCellControl arg1, CharacterModel arg2)
+        private List<ObjectSettingModel> getObjects(List<CharacterModel> lST_Characters)
+        {
+            var result = new List<ObjectSettingModel>();
+            lST_Characters.ForEach(x => result.Add(new ObjectSettingModel(x, updateCharacter, deleteCharacter, duplicateCharacter, showContentCharacter)));
+            return result;
+        }
+
+        private ObjectSettingCellControl refreshCharacter(ObjectSettingCellControl arg1, ObjectSettingModel arg2)
         {
             arg1.Update(arg2);
             return arg1;
         }
 
-        private CharacterCellControl newCharacter(CharacterModel arg) => new CharacterCellControl(arg);
+        private ObjectSettingCellControl newCharacter(ObjectSettingModel arg) => new ObjectSettingCellControl(arg);
 
         private void ClearGridCharacters()
         {
@@ -108,6 +119,33 @@ namespace DMTools.View.Campaign
                 childrenToRemove.Add(children[i]);
             }
             childrenToRemove.ForEach(x => grd_characters.Children.Remove(x));
+        }
+
+        private void showContentCharacter(string obj)
+        {
+            var dlg = new ContentViewerView(new ContentViewerCharacterModel(CharRepository.GetCharacterById(obj)));
+            dlg.Show();
+        }
+
+        private void duplicateCharacter(string obj)
+        {
+            var character = CharRepository.GetCharacterById(obj);
+            if (character == null) return;
+            if (MessageBox.Show($"Do you want to permanetly delete the section \"{character.Name}\"?", "DM Tools", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                return;
+            CharRepository.DeleteCharacter(character);
+        }
+
+        private void deleteCharacter(string obj)
+        {
+            var dlg = new CharacterEditorView(CharRepository.GetCopy(CharRepository.GetCharacterById(obj)));
+            dlg.Show();
+        }
+
+        private void updateCharacter(string obj)
+        {
+            var dlg = new CharacterEditorView(CharRepository.GetDuplicate(CharRepository.GetCharacterById(obj)));
+            dlg.Show();
         }
 
         #endregion
