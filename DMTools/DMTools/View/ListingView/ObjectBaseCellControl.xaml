@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="DMTools.View.ListingView.ObjectBaseCellControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DMTools.View.ListingView"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="100" d:DesignWidth="200">
+    <Border BorderBrush="Black" BorderThickness="1.5" Margin="2">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Path=TXT_CharacterName}" Margin="5" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <Button x:Name="btn_edit" Margin="2" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Command="{Binding Path=BTN_EditCharacter}" HorizontalAlignment="Center">
+                <Image Source="/View/Campaign/2561427_edit_icon.png" Height="24" Width="24"/>
+            </Button>
+            <Button x:Name="btn_del" Margin="2" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Command="{Binding Path=BTN_DelCharacter}" HorizontalAlignment="Center">
+                <Image Source="/View/Campaign/3643729_bin_delete_garbage_rubbish_trash_icon.png" Height="24" Width="24"/>
+            </Button>
+            <Button x:Name="btn_duplicate" Margin="2" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Command="{Binding Path=BTN_DuplicateCharacter}" HorizontalAlignment="Center">
+                <Image Source="/View/Campaign/7148741_clone_duplicate_copy_icon.png" Height="24" Width="24"/>
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

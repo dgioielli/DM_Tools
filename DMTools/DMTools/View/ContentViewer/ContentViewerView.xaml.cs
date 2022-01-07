@@ -66,6 +66,14 @@ namespace DMTools.View.ContentViewer
             txt_content.Document = m_vm.GetDocument();
         }
 
+        internal static void Show(ContentViewerViewModel contentViewerViewModel)
+        {
+            var dlg = new ContentViewerView(contentViewerViewModel);
+            dlg.Show();
+        }
+
+
+
         #endregion
     }
 }

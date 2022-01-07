@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace DMTools.Repositories
 {
-    class OrganizationRepository
+    class OrganizationRepository : ObjectBaseRepository<OrganizationModel>
     {
         #region Variables and Properties
-
-        ObserverManager Observer => ObserverManager.GetInstance();
 
         CampaignRepository Repository => CampaignRepository.GetInstance();
 
         private static OrganizationRepository m_instance = new OrganizationRepository();
 
-        public List<OrganizationModel> Organizations { get => Repository.Model.Setting.Organizations; }
+        public override List<OrganizationModel> Objects => Repository.Model.Setting.Organizations;
 
         #endregion
 
@@ -28,66 +26,13 @@ namespace DMTools.Repositories
         { if (m_instance == null) m_instance = new OrganizationRepository(); return m_instance; }
 
         private OrganizationRepository()
-        { }
+        { m_update = Repository.Model.Setting.UpdateOrganizations; }
 
         #endregion
 
         #region Functions
 
-        public OrganizationModel GetNewCharacter()
-        {
-            var result = new OrganizationModel() { ID = GetNewID() };
-            return result;
-        }
-
-        private string GetNewID()
-        {
-            var now = DateTime.Now;
-            return $"Character:{now.Year}_{now.Month}_{now.Day}_{now.Hour}_{now.Minute}_{now.Second}_{now.Millisecond}";
-        }
-
-        internal void AddEditCharacter(OrganizationModel model)
-        {
-            if (!Organizations.Exists(x => x.ID == model.ID)) AddCharacter(model);
-            else EditCharacter(model, Organizations.Find(x => x.ID == model.ID));
-        }
-
-        internal OrganizationModel GetCharacterById(string id) => Organizations.Find(x => x.ID == id);
-
-        private void EditCharacter(OrganizationModel model, OrganizationModel oldModel)
-        {
-            Organizations.Remove(oldModel);
-            AddCharacter(model);
-        }
-
-        private void AddCharacter(OrganizationModel model)
-        {
-            Organizations.Add(model);
-            Repository.Model.Update();
-            Observer.UpdateGeneralObserver();
-        }
-
-        internal void DeleteCharacter(OrganizationModel model)
-        {
-            Organizations.Remove(model);
-            Observer.UpdateGeneralObserver();
-        }
-
-        internal OrganizationModel GetCopy(OrganizationModel model)
-        {
-            var result = new OrganizationModel() { ID = model.ID };
-            CopyInfo(model, result);
-            return result;
-        }
-
-        internal OrganizationModel GetDuplicate(OrganizationModel model)
-        {
-            var result = new OrganizationModel() { ID = GetNewID() };
-            CopyInfo(model, result);
-            return result;
-        }
-
-        private static void CopyInfo(OrganizationModel model, OrganizationModel result)
+        protected override void CopyInfo(OrganizationModel model, OrganizationModel result)
         {
             result.Name = model.Name;
             result.Concept = model.Concept;
@@ -95,14 +40,7 @@ namespace DMTools.Repositories
             model.Notes.ForEach(x => result.Notes.Add(x));
         }
 
-        internal List<string> GetAllTypes() => GetAllData(x => x.OrganizationType);
-
-        protected List<string> GetAllData(Func<OrganizationModel, string> getData)
-        {
-            var result = new List<string>();
-            Organizations.ForEach(x => result.Add(getData(x)));
-            return result.Distinct().OrderBy(x => x).ToList();
-        }
+        public List<string> GetAllTypes() => GetAllData(x => x.OrganizationType);
 
         #endregion
     }

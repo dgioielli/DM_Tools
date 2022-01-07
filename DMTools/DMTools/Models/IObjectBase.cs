@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DMTools.Models.SettingModels
+namespace DMTools.Models
 {
-    public interface IObjectSetting
+    public interface IObjectBase
     {
-        string ID { get; }
+        string ID { get; set; }
         string Name { get; set; }
+
+        string ShowName { get; }
     }
 }

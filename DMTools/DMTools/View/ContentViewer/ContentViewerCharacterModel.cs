@@ -17,6 +17,7 @@ namespace DMTools.View.ContentViewer
 
         CharacterRepository Repository => CharacterRepository.GetInstance();
         SessionRepository SessionRepository => SessionRepository.GetInstance();
+        EventRepository EventRepository => EventRepository.GetInstance();
 
         CharacterModel m_model;
 
@@ -43,8 +44,20 @@ namespace DMTools.View.ContentViewer
             else if (m_model.Class != "") AddHeading2(result, $"{m_model.Class}");
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
+            AddHeading2(result, $"Events:");
+            AddList(result, GetEvents());
             AddHeading2(result, $"Session mentions:");
             AddList(result, GetSessionMentions());
+            return result;
+        }
+
+        private List<string> GetEvents()
+        {
+            var result = new List<string>();
+
+            EventRepository.Objects.ForEach(x => x.Participants.ForEach(c => { if (c.CharacterId == m_model.ID) result.Add(x.ShowName); }));
+            result = result.Distinct().ToList();
+
             return result;
         }
 
@@ -68,7 +81,7 @@ namespace DMTools.View.ContentViewer
 
         public override void Update()
         {
-            var model = Repository.GetCharacterById(m_model.ID);
+            var model = Repository.GetObjectById(m_model.ID);
             m_model = model;
             if (model == null) OnPropertyChanged(PropertyEventKeys.Close);
             else OnPropertyChanged(nameof(GetDocument));

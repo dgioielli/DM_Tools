@@ -3,6 +3,7 @@ using DMTools.Keys;
 using DMTools.Managers.Observers;
 using DMTools.Models;
 using DMTools.Repositories;
+using DMTools.View.ListingView;
 using DMTools.View.SectionEditor;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,9 @@ namespace DMTools.View.Campaign
 
         public ICommand BTN_SAVE { get; protected set; }
         public ICommand BTN_NewSection { get; protected set; }
+        public ICommand BTN_Plots { get; protected set; }
+        public ICommand BTN_Adventures { get; protected set; }
+        public ICommand BTN_Scenes { get; protected set; }
 
         #endregion
 
@@ -47,6 +51,9 @@ namespace DMTools.View.Campaign
         {
             BTN_SAVE = new DGCommand(obj => SaveCampaign());
             BTN_NewSection = new DGCommand(obj => NewSection());
+            BTN_Plots = new DGCommand(obj => BaseListingView.Show(new PlotListingViewModel()));
+            BTN_Adventures = new DGCommand(obj => BaseListingView.Show(new AdventureListingViewModel()));
+            BTN_Scenes = new DGCommand(obj => BaseListingView.Show(new SceneListingViewModel()));
             base.assinarComandos();
         }
 

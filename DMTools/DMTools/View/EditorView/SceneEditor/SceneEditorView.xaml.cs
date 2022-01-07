@@ -1,5 +1,6 @@
 ﻿using DMTools.CoreLib.PoolItems;
 using DMTools.Keys;
+using DMTools.Models.CampaignModels;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using DMTools.View.Components.Core;
@@ -17,38 +18,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DMTools.View.CharacterEditor
+namespace DMTools.View.EditorView.SceneEditor
 {
     /// <summary>
-    /// Lógica interna para CharacterEditorView.xaml
+    /// Lógica interna para SceneEditorView.xaml
     /// </summary>
-    public partial class CharacterEditorView : Window
+    public partial class SceneEditorView : Window
     {
         #region Variables and Properties
 
-        CharacterRepository Repository => CharacterRepository.GetInstance();
+        OrganizationRepository Repository => OrganizationRepository.GetInstance();
 
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
 
-        CharacterEditorViewModel m_vm;
+        SceneEditorViewModel m_vm;
 
         #endregion
 
         #region Constructors
 
-        public CharacterEditorView(CharacterModel model)
+        public SceneEditorView(SceneModel model)
         {
             InitializeComponent();
             m_poolNotes = new PoolGeneric<EditableTextBlock, string>(NewNote, RefreshNote);
-            m_vm = new CharacterEditorViewModel(model);
+            m_vm = new SceneEditorViewModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
             ShowNotes();
-            cbo_race.SetOptions(Repository.GetAllRaces());
-            cbo_class.SetOptions(Repository.GetAllClass());
-            cbo_clan.SetOptions(Repository.GetAllClans());
+            //cbo_type.SetOptions(Repository.GetAllTypes());
         }
 
         #endregion
@@ -98,6 +97,12 @@ namespace DMTools.View.CharacterEditor
             var notes = new List<string>();
             m_notes.ForEach(x => notes.Add(x.TextBase));
             m_vm.SetNotes(notes);
+        }
+
+        public static void Show(SceneModel model)
+        {
+            var dlg = new SceneEditorView(model);
+            dlg.Show();
         }
 
         #endregion

@@ -18,7 +18,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <local_core:EditableTextBlock Text="{Binding Path=TXT_CharacterName, Mode=TwoWay}" Margin="5" FontSize="30" FontWeight="Bold" PlaceHolder="New Character..." Focusable="True"/>
+            <local_core:EditableTextBlock Text="{Binding Path=TXT_Name, Mode=TwoWay}" Margin="5" FontSize="30" FontWeight="Bold" PlaceHolder="New Character..." Focusable="True"/>
             <local_core:SelectableTextBlock Text="{Binding Path=TXT_CharacterClan, Mode=TwoWay}" Margin="5" FontSize="14" PlaceHolder="Clan/Family..." Grid.Row="1" x:Name="cbo_clan" IsEditable="True" Focusable="True"/>
         </Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Focusable="False">

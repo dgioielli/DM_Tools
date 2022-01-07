@@ -115,7 +115,7 @@ namespace DMTools.View.SectionEditor
 
         private void SetCharacters()
         {
-            var chars = CharRepository.Characters.OrderBy(x => x.Name).ToList();
+            var chars = CharRepository.Objects.OrderBy(x => x.Name).ToList();
             cbo_character.Items.Clear();
             foreach (CharacterModel c in chars)
             {
@@ -157,7 +157,7 @@ namespace DMTools.View.SectionEditor
         private void UpdateSTT(SessionCharacterModel obj)
         {
             stt_Text.Inlines.Clear();
-            stt_Text.Inlines.AddRange(FlowDocumentService.GetSessionCharacterRuns(obj));
+            stt_Text.Inlines.AddRange(FlowDocumentService.GetCharacterSessionRuns(obj));
         }
 
         #endregion

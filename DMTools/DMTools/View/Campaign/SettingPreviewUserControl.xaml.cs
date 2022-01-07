@@ -1,9 +1,15 @@
 ﻿using DMTools.CoreLib.PoolItems;
+using DMTools.Keys;
 using DMTools.Managers;
+using DMTools.Models;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using DMTools.View.CharacterEditor;
 using DMTools.View.ContentViewer;
+using DMTools.View.EditorView.EventEditor;
+using DMTools.View.ListingView;
+using DMTools.View.LocationEditor;
+using DMTools.View.OrganizationEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +36,9 @@ namespace DMTools.View.Campaign
 
         ObserverManager Observer => ObserverManager.GetInstance();
         CharacterRepository CharRepository => CharacterRepository.GetInstance();
-        PoolGeneric<ObjectSettingCellControl, ObjectSettingModel> m_poolCharacters;
+        OrganizationRepository OrgRepository => OrganizationRepository.GetInstance();
+        LocationRepository LocRepository => LocationRepository.GetInstance();
+        EventRepository EventRepository => EventRepository.GetInstance();
 
         SettingPreviewUserControlModel m_vm = new SettingPreviewUserControlModel();
 
@@ -42,11 +50,10 @@ namespace DMTools.View.Campaign
         {
             InitializeComponent();
             Observer.RegisterGeneralObserver(m_vm);
-            m_poolCharacters = new PoolGeneric<ObjectSettingCellControl, ObjectSettingModel>(newCharacter, refreshCharacter);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
-            ShowCharacters();
+            SetObjectsCarousels();
         }
 
         #endregion
@@ -56,7 +63,6 @@ namespace DMTools.View.Campaign
         private void M_vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(m_vm.TXT_VisibilitySettingName)) SetTxtSettingNameFocus();
-            else if (e.PropertyName == nameof(m_vm.LST_Characters)) ShowCharacters();
         }
 
         private void SetActions()
@@ -70,6 +76,49 @@ namespace DMTools.View.Campaign
 
         #region Functions
 
+        private void SetObjectsCarousels()
+        {
+            var uc = new ObjectBaseCarouselControl(
+                CharRepository.GetAllObjectsBase, 
+                () => CharacterEditorView.Show(CharRepository.GetNewObject()),
+                () => BaseListingView.Show(new CharacterListingViewModel()),
+                id => CharacterEditorView.Show(CharRepository.GetCopy(CharRepository.GetObjectById(id))),
+                id => CharacterEditorView.Show(CharRepository.GetDuplicate(CharRepository.GetObjectById(id))),
+                id => ContentViewerView.Show(new ContentViewerCharacterModel(CharRepository.GetObjectById(id))),
+                id => DeleteObject(id, CharRepository, "character"));
+            pnl_characters.Children.Add(uc);
+
+            uc = new ObjectBaseCarouselControl(
+                LocRepository.GetAllObjectsBase,
+                () => LocationEditorView.Show(LocRepository.GetNewObject()),
+                () => BaseListingView.Show(new LocationListingViewModel()),
+                id => LocationEditorView.Show(LocRepository.GetCopy(LocRepository.GetObjectById(id))),
+                id => LocationEditorView.Show(LocRepository.GetDuplicate(LocRepository.GetObjectById(id))),
+                id => ContentViewerView.Show(new ContentViewerLocationModel(LocRepository.GetObjectById(id))),
+                id => DeleteObject(id, LocRepository, "location"));
+            pnl_locations.Children.Add(uc);
+            
+            uc = new ObjectBaseCarouselControl(
+                OrgRepository.GetAllObjectsBase,
+                () => OrganizationEditorView.Show(OrgRepository.GetNewObject()),
+                () => BaseListingView.Show(new OrganizationListingViewModel()),
+                id => OrganizationEditorView.Show(OrgRepository.GetCopy(OrgRepository.GetObjectById(id))),
+                id => OrganizationEditorView.Show(OrgRepository.GetDuplicate(OrgRepository.GetObjectById(id))),
+                id => ContentViewerView.Show(new ContentViewerOrganizationModel(OrgRepository.GetObjectById(id))),
+                id => DeleteObject(id, OrgRepository, "organization"));
+            pnl_organizations.Children.Add(uc);
+
+            uc = new ObjectBaseCarouselControl(
+                EventRepository.GetAllObjectsBase,
+                () => EventEditorView.Show(EventRepository.GetNewObject()),
+                () => BaseListingView.Show(new EventListingViewModel()),
+                id => EventEditorView.Show(EventRepository.GetCopy(EventRepository.GetObjectById(id))),
+                id => EventEditorView.Show(EventRepository.GetDuplicate(EventRepository.GetObjectById(id))),
+                id => ContentViewerView.Show(new ContentViewerEventModel(EventRepository.GetObjectById(id))),
+                id => DeleteObject(id, EventRepository, "event"));
+            pnl_events.Children.Add(uc);
+        }
+
         private void SetTxtSettingNameFocus()
         {
             txt_settingName.Visibility = m_vm.TXT_VisibilitySettingName;
@@ -78,74 +127,14 @@ namespace DMTools.View.Campaign
             txt_settingName.SelectAll();
         }
 
-        private void ShowCharacters()
+        private void DeleteObject<T>(string id, ObjectBaseRepository<T> repository, string type)
+            where T : IObjectBase, new()
         {
-            ClearGridCharacters();
-            var list = m_poolCharacters.GetObjects(getObjects(m_vm.LST_Characters));
-            for (int i = 0; i < list.Count; i++)
-            {
-                int col = i % 5;
-                int row = i / 5;
-                var uc = list[i];
-                Grid.SetColumn(uc, col + 1);
-                Grid.SetRow(uc, row);
-                grd_characters.Children.Add(uc);
-            }
-        }
-
-        private List<ObjectSettingModel> getObjects(List<CharacterModel> lST_Characters)
-        {
-            var result = new List<ObjectSettingModel>();
-            lST_Characters.ForEach(x => result.Add(new ObjectSettingModel(x, updateCharacter, deleteCharacter, duplicateCharacter, showContentCharacter)));
-            return result;
-        }
-
-        private ObjectSettingCellControl refreshCharacter(ObjectSettingCellControl arg1, ObjectSettingModel arg2)
-        {
-            arg1.Update(arg2);
-            return arg1;
-        }
-
-        private ObjectSettingCellControl newCharacter(ObjectSettingModel arg) => new ObjectSettingCellControl(arg);
-
-        private void ClearGridCharacters()
-        {
-            var children = grd_characters.Children;
-            var childrenToRemove = new List<UIElement>();
-            for (int i = 0; i < children.Count; i++)
-            {
-                int col = Grid.GetColumn(children[i]);
-                if (col == 0 || col >= 6) continue;
-                childrenToRemove.Add(children[i]);
-            }
-            childrenToRemove.ForEach(x => grd_characters.Children.Remove(x));
-        }
-
-        private void showContentCharacter(string obj)
-        {
-            var dlg = new ContentViewerView(new ContentViewerCharacterModel(CharRepository.GetCharacterById(obj)));
-            dlg.Show();
-        }
-
-        private void duplicateCharacter(string obj)
-        {
-            var character = CharRepository.GetCharacterById(obj);
-            if (character == null) return;
-            if (MessageBox.Show($"Do you want to permanetly delete the section \"{character.Name}\"?", "DM Tools", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            var item = repository.GetObjectById(id);
+            if (item == null) return;
+            if (MessageBox.Show(MessageKeys.GetDeleteMsg(type, item.Name), "DM Tools", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
-            CharRepository.DeleteCharacter(character);
-        }
-
-        private void deleteCharacter(string obj)
-        {
-            var dlg = new CharacterEditorView(CharRepository.GetCopy(CharRepository.GetCharacterById(obj)));
-            dlg.Show();
-        }
-
-        private void updateCharacter(string obj)
-        {
-            var dlg = new CharacterEditorView(CharRepository.GetDuplicate(CharRepository.GetCharacterById(obj)));
-            dlg.Show();
+            repository.DeleteObject(item);
         }
 
         #endregion

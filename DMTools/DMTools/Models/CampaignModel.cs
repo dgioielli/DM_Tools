@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMTools.Models.CampaignModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace DMTools.Models
         public string CampaignName { get; set; }
         public CampaignSettingModel Setting { get; set; }
         public List<SessionModel> Sessions { get; protected set; }
+        public List<AdventureModel> Adventures { get; set; }
+        public List<PlotModel> Plots { get; set; }
+        public List<SceneModel> Scenes { get; set; }
 
         #endregion
 
@@ -23,16 +27,22 @@ namespace DMTools.Models
             CampaignName = "";
             Setting = new CampaignSettingModel();
             Sessions = new List<SessionModel>();
+            Adventures = new List<AdventureModel>();
+            Plots = new List<PlotModel>();
+            Scenes = new List<SceneModel>();
         }
 
         #endregion
 
         #region Functions
 
-        internal void Update()
-        {
-            Sessions = Sessions.OrderBy(x => x.ID).ToList();
-        }
+        internal void UpdateSessions() => Sessions = Sessions.OrderBy(x => x.ID).ToList();
+
+        internal void UpdateAdventures() => Adventures = Adventures.OrderBy(x => x.AdventureType).ThenBy(x => x.Name).ToList();
+
+        internal void UpdatePlots() => Plots = Plots.OrderBy(x => x.PlotType).ThenBy(x => x.Name).ToList();
+
+        internal void UpdateScenes() => Scenes = Scenes.OrderBy(x => x.Name).ToList();
 
         #endregion
     }

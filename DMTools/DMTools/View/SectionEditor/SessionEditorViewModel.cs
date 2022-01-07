@@ -101,7 +101,7 @@ namespace DMTools.View.SectionEditor
 
         private string GetCharName(string characterId)
         {
-            var c = CharRepository.GetCharacterById(characterId);
+            var c = CharRepository.GetObjectById(characterId);
             if (c == null) return "";
             return c.Name;
         }

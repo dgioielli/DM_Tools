@@ -20,7 +20,7 @@ namespace DMTools.View.SectionEditor
         SessionCharacterModel m_model;
 
         public string TXT_Info { get => m_model.Info; set { m_model.Info = value; OnPropertyChanged(); } }
-        public CharacterModel Character { get => CharRepository.GetCharacterById(m_model.CharacterId); set => m_model.CharacterId = value.ID; }
+        public CharacterModel Character { get => CharRepository.GetObjectById(m_model.CharacterId); set => m_model.CharacterId = value.ID; }
         public int CBO_Index_Role { get => (int)m_model.Role; set { m_model.Role = (ECharacterRoleKeys)value; OnPropertyChanged(); } }
 
         #endregion

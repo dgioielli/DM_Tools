@@ -1,4 +1,5 @@
-﻿using DMTools.Models.SettingModels;
+﻿using DMTools.Models;
+using DMTools.Models.SettingModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DMTools.View.Campaign
     {
         #region Variables and Properties
 
-        public IObjectSetting Object { get; }
+        public IObjectBase Object { get; }
         private Action<string> m_update;
         private Action<string> m_delete;
         private Action<string> m_duplicate;
@@ -21,7 +22,7 @@ namespace DMTools.View.Campaign
 
         #region Constructors
 
-        public ObjectSettingModel(IObjectSetting obj, Action<string> update, Action<string> delete, Action<string> duplicate, Action<string> showContent)
+        public ObjectSettingModel(IObjectBase obj, Action<string> update, Action<string> delete, Action<string> duplicate, Action<string> showContent)
         {
             Object = obj;
             m_update = update;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DMTools.Models.SettingModels
 {
-    public class CharacterModel : IObjectSetting
+    public class CharacterModel : IObjectBase
     {
         #region Variables and Properties
 
@@ -17,6 +18,9 @@ namespace DMTools.Models.SettingModels
         public string Class { get; set; }
         public string Clan { get; set; }
         public List<string> Notes { get; protected set; }
+
+        [JsonIgnore]
+        public string ShowName => Name;
 
 
         #endregion

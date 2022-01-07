@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DMTools.Models.SettingModels
 {
-    public class OrganizationModel : IObjectSetting
+    public class OrganizationModel : IObjectBase
     {
         #region Variables and Properties
 
@@ -15,6 +16,9 @@ namespace DMTools.Models.SettingModels
         public string Concept { get; set; }
         public string OrganizationType { get; set; }
         public List<string> Notes { get; protected set; }
+
+        [JsonIgnore]
+        public string ShowName => $"{OrganizationType} :: {Name}";
 
 
         #endregion

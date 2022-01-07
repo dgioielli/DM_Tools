@@ -59,7 +59,7 @@ namespace DMTools.View.Campaign
 
         internal void ShowContent()
         {
-            var dlg = new ContentViewerView(new ContentViewerSectionModel(m_model));
+            var dlg = new ContentViewerView(new ContentViewerSessionModel(m_model));
             dlg.Show();
         }
 

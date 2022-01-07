@@ -22,33 +22,18 @@
         <Grid>
             <TextBlock Text="NPCs:" FontSize="20" FontWeight="DemiBold"/>
         </Grid>
-        <Grid x:Name="grd_characters">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.RowSpan="2" Margin="3" Command="{Binding Path=BTN_NPCsPreviosPage}">
-                <Image Source="/View/Campaign/211689_left_arrow_icon.png" Width="24" Height="24" VerticalAlignment="Center"/>
-            </Button>
-            <Button Grid.Column="6" Grid.RowSpan="2" Margin="3" Command="{Binding Path=BTN_NPCsNextPage}">
-                <Image Source="/View/Campaign/211607_right_arrow_icon.png" Width="24" Height="24" VerticalAlignment="Center"/>
-            </Button>
-            <Button Grid.Column="7" Grid.Row="0" Margin="3" Command="{Binding Path=BTN_NewNPCs}" VerticalAlignment="Center">
-                <Image Source="/View/Campaign/4213478_plus_add_button_action_more_icon.png" Width="24" Height="24" VerticalAlignment="Center"/>
-            </Button>
-            <Button Grid.Column="7" Grid.Row="1" Margin="3" Command="{Binding Path=BTN_ShowNPCs}" VerticalAlignment="Center">
-                <Image Source="/View/Campaign/3643763_list_mark_menu_option_sign_icon.png" Width="24" Height="24" VerticalAlignment="Center"/>
-            </Button>
+        <StackPanel Name="pnl_characters"/>
+        <Grid>
+            <TextBlock Text="Locations:" FontSize="20" FontWeight="DemiBold"/>
         </Grid>
+        <StackPanel Name="pnl_locations"/>
+        <Grid>
+            <TextBlock Text="Organizations:" FontSize="20" FontWeight="DemiBold"/>
+        </Grid>
+        <StackPanel Name="pnl_organizations"/>
+        <Grid>
+            <TextBlock Text="Eventos:" FontSize="20" FontWeight="DemiBold"/>
+        </Grid>
+        <StackPanel Name="pnl_events"/>
     </StackPanel>
 </UserControl>

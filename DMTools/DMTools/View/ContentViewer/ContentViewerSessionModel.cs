@@ -15,7 +15,7 @@ using System.Windows.Media;
 
 namespace DMTools.View.ContentViewer
 {
-    class ContentViewerSectionModel : ContentViewerViewModel
+    class ContentViewerSessionModel : ContentViewerViewModel
     {
         #region Variables and Properties
 
@@ -30,7 +30,7 @@ namespace DMTools.View.ContentViewer
 
         #region Constructors
 
-        public ContentViewerSectionModel(SessionModel model)
+        public ContentViewerSessionModel(SessionModel model)
         { m_model = model; }
 
         #endregion
@@ -47,13 +47,13 @@ namespace DMTools.View.ContentViewer
             m_model.Possibilities.ForEach(x => { if (x.WasIgnored) AddStrikeoutText(result, x.Text); else AddText(result, x.Text); });
             AddHeading2(result, $"NPCs:");
             AddHeading3(result, $"Allies:");
-            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Ally).ForEach(x => AddText(result, FlowDocumentService.GetSessionCharacterRuns(x)));
+            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Ally).ForEach(x => AddText(result, FlowDocumentService.GetCharacterSessionRuns(x)));
             AddHeading3(result, $"Enemies:");
-            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Enemy).ForEach(x => AddText(result, FlowDocumentService.GetSessionCharacterRuns(x)));
+            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Enemy).ForEach(x => AddText(result, FlowDocumentService.GetCharacterSessionRuns(x)));
             AddHeading3(result, $"Neutrals:");
-            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Neutral).ForEach(x => AddText(result, FlowDocumentService.GetSessionCharacterRuns(x)));
+            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Neutral).ForEach(x => AddText(result, FlowDocumentService.GetCharacterSessionRuns(x)));
             AddHeading3(result, $"Secondaries:");
-            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Secondary).ForEach(x => AddText(result, FlowDocumentService.GetSessionCharacterRuns(x)));
+            m_model.Characters.FindAll(x => x.Role == ECharacterRoleKeys.Secondary).ForEach(x => AddText(result, FlowDocumentService.GetCharacterSessionRuns(x)));
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             return result;

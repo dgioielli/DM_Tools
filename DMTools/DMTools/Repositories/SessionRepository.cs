@@ -66,7 +66,7 @@ namespace DMTools.Repositories
         private void AddSession(SessionModel model)
         {
             Sessions.Add(model);
-            Repository.Model.Update();
+            Repository.Model.UpdateSessions();
             Observer.UpdateGeneralObserver();
         }
 
