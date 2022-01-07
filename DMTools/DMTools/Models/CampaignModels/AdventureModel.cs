@@ -18,7 +18,7 @@ namespace DMTools.Models.CampaignModels
         public List<string> Notes { get; protected set; }
 
         [JsonIgnore]
-        public string ShowName => Name;
+        public string ShowName => $"{AdventureType} :: {Name}";
 
 
         #endregion

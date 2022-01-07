@@ -27,7 +27,7 @@ namespace DMTools.View.EditorView.PlotEditor
     {
         #region Variables and Properties
 
-        OrganizationRepository Repository => OrganizationRepository.GetInstance();
+        PlotRepository Repository => PlotRepository.GetInstance();
 
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();

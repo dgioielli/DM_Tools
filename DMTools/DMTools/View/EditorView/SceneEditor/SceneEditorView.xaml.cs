@@ -27,7 +27,7 @@ namespace DMTools.View.EditorView.SceneEditor
     {
         #region Variables and Properties
 
-        OrganizationRepository Repository => OrganizationRepository.GetInstance();
+        SceneRepository Repository => SceneRepository.GetInstance();
 
         PoolGeneric<EditableTextBlock, string> m_poolNotes;
         List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
