@@ -34,6 +34,14 @@ namespace DMTools.Repositories
             return result;
         }
 
+        public List<IObjectBase> GetAllObjectsBaseFilter(string filter)
+        {
+            var result = new List<IObjectBase>();
+            var filteredObjects = Objects.FindAll(x => x.ShowName.ToUpper().Contains(filter.ToUpper()));
+            filteredObjects.ForEach(x => result.Add(x));
+            return result;
+        }
+
         public T GetObjectShowName(string shwoName) => Objects.Find(x => x.ShowName == shwoName);
 
 

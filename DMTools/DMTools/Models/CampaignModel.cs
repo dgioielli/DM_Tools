@@ -36,13 +36,13 @@ namespace DMTools.Models
 
         #region Functions
 
-        internal void UpdateSessions() => Sessions = Sessions.OrderBy(x => x.ID).ToList();
+        internal void UpdateSessions() => Sessions = Sessions.OrderBy(x => x.SessionName).ToList();
 
         internal void UpdateAdventures() => Adventures = Adventures.OrderBy(x => x.AdventureType).ThenBy(x => x.Name).ToList();
 
         internal void UpdatePlots() => Plots = Plots.OrderBy(x => x.PlotType).ThenBy(x => x.Name).ToList();
 
-        internal void UpdateScenes() => Scenes = Scenes.OrderBy(x => x.Name).ToList();
+        internal void UpdateScenes() => Scenes = Scenes.OrderBy(x => x.SceneType).ThenBy(x => x.Name).ToList();
 
         #endregion
     }

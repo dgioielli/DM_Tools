@@ -21,9 +21,22 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Plots" Margin="5" Grid.Column="0" Command="{Binding Path=BTN_Plots}"/>
-            <Button Content="Adventures" Margin="5" Grid.Column="1" Command="{Binding Path=BTN_Adventures}"/>
-            <Button Content="Scenes" Margin="5" Grid.Column="2" Command="{Binding Path=BTN_Scenes}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="Plots" Margin="5" Grid.Column="0" Grid.Row="0" Command="{Binding Path=BTN_Plots}"/>
+            <Button Content="Adventures" Margin="5" Grid.Column="1" Grid.Row="0" Command="{Binding Path=BTN_Adventures}"/>
+            <Button Content="Scenes" Margin="5" Grid.Column="2" Grid.Row="0" Command="{Binding Path=BTN_Scenes}"/>
+
+            <Button Content="Characters" Margin="5" Grid.Column="0" Grid.Row="1" Command="{Binding Path=BTN_Characters}"/>
+            <Button Content="Locations" Margin="5" Grid.Column="1" Grid.Row="1" Command="{Binding Path=BTN_Locations}"/>
+            <Button Content="Organizations" Margin="5" Grid.Column="2" Grid.Row="1" Command="{Binding Path=BTN_Organizations}"/>
+
+            <Button Content="Events" Margin="5" Grid.Column="0" Grid.Row="2" Command="{Binding Path=BTN_Events}"/>
+            <!--<Button Content="Adventures" Margin="5" Grid.Column="1" Grid.Row="2" Command="{Binding Path=BTN_Adventures}"/>
+            <Button Content="Scenes" Margin="5" Grid.Column="2" Grid.Row="2" Command="{Binding Path=BTN_Scenes}"/>-->
         </Grid>
         <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel>

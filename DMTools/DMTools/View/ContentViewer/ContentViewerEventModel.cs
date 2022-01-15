@@ -43,7 +43,7 @@ namespace DMTools.View.ContentViewer
             if (m_model.EventType != "") AddHeading2(result, $"{m_model.EventType}");
             AddText(result, $"{m_model.Abstract}");
             AddHeading3(result, $"Participants:");
-            m_model.Participants.ForEach(x => AddText(result, FlowDocumentService.GetCharacterEventRuns(x)));
+            m_model.Participants.ForEach(x => AddText(result, FlowDocumentService.GetCharacterInfoRuns(x)));
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             return result;

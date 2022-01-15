@@ -19,7 +19,7 @@ namespace DMTools.View.ContentViewer
 
         SceneModel m_model;
 
-        public string WDW_Title { get => $"DM Tools - Adventure : {m_model.Name}"; }
+        public string WDW_Title { get => $"DM Tools - Scene : {m_model.Name}"; }
 
         #endregion
 
@@ -36,6 +36,7 @@ namespace DMTools.View.ContentViewer
         {
             var result = new FlowDocument();
             AddHeading1(result, $"{m_model.Name}");
+            if (m_model.SceneType != "") AddHeading2(result, $"{m_model.SceneType}");
             AddText(result, $"Storyteller goal: {m_model.StorytellerGoal}");
             AddText(result, $"Players goal: {m_model.PlayerGoal}");
             AddHeading2(result, $"Notes:");

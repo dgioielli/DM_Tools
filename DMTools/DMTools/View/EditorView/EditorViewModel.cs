@@ -20,6 +20,7 @@ namespace DMTools.View.EditorView
 
         public abstract string TXT_Name { get; set; }
         protected abstract string TypeEditor { get; }
+        public abstract List<string> LST_Notes { get; }
 
         public string WDW_Title => $"DM Tools - {TypeEditor} : {TXT_Name}";
 

@@ -36,8 +36,11 @@ namespace DMTools.Repositories
             result.Name = model.Name;
             result.PlayerGoal = model.PlayerGoal;
             result.StorytellerGoal = model.StorytellerGoal;
+            result.SceneType = model.SceneType;
             model.Notes.ForEach(x => result.Notes.Add(x));
         }
+
+        public List<string> GetAllTypes() => GetAllData(x => x.SceneType);
 
         #endregion
     }

@@ -13,13 +13,23 @@
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Filter: " Margin="5" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Path=TXT_Filter, UpdateSourceTrigger=PropertyChanged}" Margin="5" Grid.Column="1" />
+            </Grid>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">
                 <StackPanel x:Name="pnl_items"/>
             </ScrollViewer>
-            <Button Margin="5" Grid.Row="1" Content="Add New" Command="{Binding Path=BTN_New}" />
+            <Button Margin="5" Grid.Row="2" Content="Add New" Command="{Binding Path=BTN_New}" />
 
 
         </Grid>

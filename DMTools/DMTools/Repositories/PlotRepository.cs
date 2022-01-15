@@ -36,6 +36,7 @@ namespace DMTools.Repositories
             result.Abstract = model.Abstract;
             result.Name = model.Name;
             model.Notes.ForEach(x => result.Notes.Add(x));
+            model.IdScenes.ForEach(x => result.IdScenes.Add(x));
             result.PlotType = model.PlotType;
         }
 

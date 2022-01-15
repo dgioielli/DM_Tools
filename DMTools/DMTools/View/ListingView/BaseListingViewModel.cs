@@ -19,8 +19,10 @@ namespace DMTools.View.ListingView
         #region Variables and Properties
 
         protected FlowDocument m_document = new FlowDocument();
+        protected string m_filter = "";
 
         public abstract string WDW_Title { get; }
+        public string TXT_Filter { get => m_filter; set { m_filter = value; OnPropertyChanged(); OnPropertyChanged(nameof(GetObjects)); } }
 
         public ICommand BTN_New { get; protected set; }
 

@@ -25,6 +25,9 @@
             <StackPanel Grid.Row="1">
                 <TextBlock Text="Concept:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
                 <local_core:EditableTextBlock Text="{Binding Path=TXT_Concept, Mode=TwoWay}" Margin="5" FontSize="12" TextWrapping="Wrap" AcceptReturn="True" PlaceHolder="Concept..." Focusable="True"/>
+
+                <TextBlock Text="Members:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
+                <StackPanel x:Name="pnl_characters"/>
                 
                 <TextBlock Text="Notes:" Margin="5" FontSize="15" FontWeight="DemiBold"/>
                 <StackPanel x:Name="pnl_notes"/>

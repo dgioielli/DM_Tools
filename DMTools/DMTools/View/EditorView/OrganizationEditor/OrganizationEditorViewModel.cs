@@ -13,27 +13,27 @@ using System.Windows.Input;
 
 namespace DMTools.View.OrganizationEditor
 {
-    class OrganizationEditorViewModel : EditorViewModel
+    class OrganizationEditorViewModel : BaseObjectEditorViewModel<OrganizationModel>
     {
         #region Variables and Properties
 
         OrganizationRepository Repository => OrganizationRepository.GetInstance();
-        OrganizationModel m_model;
-
+        
         protected override string TypeEditor => "Organization";
+        List<ObjectInfoModel> m_characters = new List<ObjectInfoModel>();
 
-        public override string TXT_Name { get => m_model.Name; set { m_model.Name = value; OnPropertyChanged(); OnPropertyChanged(nameof(WDW_Title)); } }
         public string TXT_Concept { get => m_model.Concept; set { m_model.Concept = value; OnPropertyChanged(); } }
         public string TXT_Type { get => m_model.OrganizationType; set { m_model.OrganizationType = value; OnPropertyChanged(); } }
-        public List<string> LST_Notes { get => m_model.Notes; }
+        public List<ObjectInfoModel> LST_Characters { get => m_characters; }
 
         #endregion
 
         #region Constructors
 
-        public OrganizationEditorViewModel(OrganizationModel model)
+        public OrganizationEditorViewModel(OrganizationModel model) : base(model)
         {
-            m_model = model;
+            m_characters.Clear();
+            m_model.Members.ForEach(x => m_characters.Add(new ObjectInfoModel(x)));
         }
 
         #endregion
@@ -42,19 +42,22 @@ namespace DMTools.View.OrganizationEditor
 
         public override void Update()
         {
-            OnPropertyChanged(nameof(TXT_Name));
             OnPropertyChanged(nameof(TXT_Concept));
-            OnPropertyChanged(nameof(LST_Notes));
+            UpdateCharacters();
+            OnPropertyChanged(nameof(LST_Characters));
+            base.Update();
         }
 
-        protected override void UpdateObject() => Repository.AddEditObject(m_model);
-
-        public void SetNotes(List<string> notes)
+        private void UpdateCharacters()
         {
-            m_model.Notes.Clear();
-            foreach (var note in notes)
-                if (note != "") m_model.Notes.Add(note);
-            OnPropertyChanged(nameof(LST_Notes));
+            ClearList(m_characters, x => x.ObjectId.Trim() == "" && x.Info == "");
+            m_characters.Add(new ObjectInfoModel());
+        }
+
+        protected override void UpdateObject()
+        {
+            UpdateList(m_model.Members, m_characters, x => x.ObjectId.Trim() == "" && x.Info == "");
+            Repository.AddEditObject(m_model);
         }
 
         #endregion

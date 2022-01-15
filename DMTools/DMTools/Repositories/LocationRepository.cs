@@ -36,8 +36,10 @@ namespace DMTools.Repositories
         {
             result.Name = model.Name;
             result.Concept = model.Concept;
+            result.Description = model.Description;
             result.LocationType = model.LocationType;
             model.Notes.ForEach(x => result.Notes.Add(x));
+            model.NotableCharacters.ForEach(x => result.NotableCharacters.Add(new ObjectInfoModel(x)));
         }
 
         public List<string> GetAllTypes() => GetAllData(x => x.LocationType);

@@ -3,6 +3,8 @@ using DMTools.Keys;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using DMTools.View.Components.Core;
+using DMTools.View.EditorView.Components;
+using DMTools.View.EditorView.Components.NotesObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +30,8 @@ namespace DMTools.View.LocationEditor
 
         LocationRepository Repository => LocationRepository.GetInstance();
 
-        PoolGeneric<EditableTextBlock, string> m_poolNotes;
-        List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
+        NotesListManager<LocationModel> m_notesManager;
+        CharacterInfoControlManager m_charManager;
 
         LocationEditorViewModel m_vm;
 
@@ -40,12 +42,14 @@ namespace DMTools.View.LocationEditor
         public LocationEditorView(LocationModel model)
         {
             InitializeComponent();
-            m_poolNotes = new PoolGeneric<EditableTextBlock, string>(NewNote, RefreshNote);
             m_vm = new LocationEditorViewModel(model);
+            m_notesManager = new NotesListManager<LocationModel>(m_vm);
+            m_charManager = new CharacterInfoControlManager(m_vm.Update);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
-            ShowNotes();
+            m_notesManager.ShowNotes(pnl_notes);
+            m_charManager.ShowCharacters(pnl_characters, m_vm.LST_Characters);
             cbo_type.SetOptions(Repository.GetAllTypes());
         }
 
@@ -56,7 +60,8 @@ namespace DMTools.View.LocationEditor
         private void M_vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == PropertyEventKeys.Close) Close();
-            else if (e.PropertyName == nameof(m_vm.LST_Notes)) ShowNotes();
+            else if (e.PropertyName == nameof(m_vm.LST_Notes)) m_notesManager.ShowNotes(pnl_notes);
+            else if (e.PropertyName == nameof(m_vm.LST_Characters)) m_charManager.ShowCharacters(pnl_characters, m_vm.LST_Characters);
         }
 
         private void SetActions()
@@ -67,36 +72,6 @@ namespace DMTools.View.LocationEditor
         #endregion
 
         #region Functions
-
-        private void ShowNotes()
-        {
-            var list = new List<string>(m_vm.LST_Notes);
-            list.Add("");
-            m_notes = m_poolNotes.GetObjects(list);
-            pnl_notes.Children.Clear();
-            m_notes.ForEach(x => pnl_notes.Children.Add(x));
-        }
-
-        private EditableTextBlock RefreshNote(EditableTextBlock ed, string text)
-        {
-            ed.Text = text;
-            return ed;
-        }
-
-        private EditableTextBlock NewNote(string text)
-        {
-            var ed = new EditableTextBlock() { AcceptReturn = true, PlaceHolder = "+ + + New Note + + +", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(5), Focusable = true };
-            ed.Text = text;
-            ed.OnTextChanged += OnNoteChanged;
-            return ed;
-        }
-
-        private void OnNoteChanged()
-        {
-            var notes = new List<string>();
-            m_notes.ForEach(x => notes.Add(x.TextBase));
-            m_vm.SetNotes(notes);
-        }
 
         public static void Show(LocationModel characterModel)
         {

@@ -33,6 +33,10 @@ namespace DMTools.View.Campaign
         public ICommand BTN_Plots { get; protected set; }
         public ICommand BTN_Adventures { get; protected set; }
         public ICommand BTN_Scenes { get; protected set; }
+        public ICommand BTN_Characters { get; protected set; }
+        public ICommand BTN_Locations { get; protected set; }
+        public ICommand BTN_Organizations { get; protected set; }
+        public ICommand BTN_Events { get; protected set; }
 
         #endregion
 
@@ -54,6 +58,10 @@ namespace DMTools.View.Campaign
             BTN_Plots = new DGCommand(obj => BaseListingView.Show(new PlotListingViewModel()));
             BTN_Adventures = new DGCommand(obj => BaseListingView.Show(new AdventureListingViewModel()));
             BTN_Scenes = new DGCommand(obj => BaseListingView.Show(new SceneListingViewModel()));
+            BTN_Characters = new DGCommand(obj => BaseListingView.Show(new CharacterListingViewModel()));
+            BTN_Locations = new DGCommand(obj => BaseListingView.Show(new LocationListingViewModel()));
+            BTN_Organizations = new DGCommand(obj => BaseListingView.Show(new OrganizationListingViewModel()));
+            BTN_Events = new DGCommand(obj => BaseListingView.Show(new EventListingViewModel()));
             base.assinarComandos();
         }
 

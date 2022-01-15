@@ -19,7 +19,7 @@ namespace DMTools.View.ContentViewer
 
         PlotModel m_model;
 
-        public string WDW_Title { get => $"DM Tools - Adventure : {m_model.Name}"; }
+        public string WDW_Title { get => $"DM Tools - Plot : {m_model.Name}"; }
 
         #endregion
 

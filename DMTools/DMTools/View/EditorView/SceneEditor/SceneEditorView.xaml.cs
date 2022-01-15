@@ -4,6 +4,7 @@ using DMTools.Models.CampaignModels;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using DMTools.View.Components.Core;
+using DMTools.View.EditorView.Components.NotesObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,7 @@ namespace DMTools.View.EditorView.SceneEditor
 
         SceneRepository Repository => SceneRepository.GetInstance();
 
-        PoolGeneric<EditableTextBlock, string> m_poolNotes;
-        List<EditableTextBlock> m_notes = new List<EditableTextBlock>();
+        NotesListManager<SceneModel> m_notesManager;
 
         SceneEditorViewModel m_vm;
 
@@ -41,13 +41,13 @@ namespace DMTools.View.EditorView.SceneEditor
         public SceneEditorView(SceneModel model)
         {
             InitializeComponent();
-            m_poolNotes = new PoolGeneric<EditableTextBlock, string>(NewNote, RefreshNote);
             m_vm = new SceneEditorViewModel(model);
+            m_notesManager = new NotesListManager<SceneModel>(m_vm);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
-            ShowNotes();
-            //cbo_type.SetOptions(Repository.GetAllTypes());
+            m_notesManager.ShowNotes(pnl_notes);
+            cbo_type.SetOptions(Repository.GetAllTypes());
         }
 
         #endregion
@@ -57,7 +57,7 @@ namespace DMTools.View.EditorView.SceneEditor
         private void M_vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == PropertyEventKeys.Close) Close();
-            else if (e.PropertyName == nameof(m_vm.LST_Notes)) ShowNotes();
+            else if (e.PropertyName == nameof(m_vm.LST_Notes)) m_notesManager.ShowNotes(pnl_notes);
         }
 
         private void SetActions()
@@ -68,36 +68,6 @@ namespace DMTools.View.EditorView.SceneEditor
         #endregion
 
         #region Functions
-
-        private void ShowNotes()
-        {
-            var list = new List<string>(m_vm.LST_Notes);
-            list.Add("");
-            m_notes = m_poolNotes.GetObjects(list);
-            pnl_notes.Children.Clear();
-            m_notes.ForEach(x => pnl_notes.Children.Add(x));
-        }
-
-        private EditableTextBlock RefreshNote(EditableTextBlock ed, string text)
-        {
-            ed.Text = text;
-            return ed;
-        }
-
-        private EditableTextBlock NewNote(string text)
-        {
-            var ed = new EditableTextBlock() { AcceptReturn = true, PlaceHolder = "+ + + New Note + + +", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(5), Focusable = true };
-            ed.Text = text;
-            ed.OnTextChanged += OnNoteChanged;
-            return ed;
-        }
-
-        private void OnNoteChanged()
-        {
-            var notes = new List<string>();
-            m_notes.ForEach(x => notes.Add(x.TextBase));
-            m_vm.SetNotes(notes);
-        }
 
         public static void Show(SceneModel model)
         {

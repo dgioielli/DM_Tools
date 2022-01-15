@@ -23,7 +23,7 @@ namespace DMTools.Models.SettingModels
         public int Month { get; set; }
         public int Year { get; set; }
         public string LocationID { get; set; }
-        public List<CharacterEventModel> Participants { get; set; }
+        public List<ObjectInfoModel> Participants { get; set; }
         public List<string> Notes { get; protected set; }
 
         [JsonIgnore]
@@ -40,7 +40,7 @@ namespace DMTools.Models.SettingModels
             Abstract = "";
             EventType = "";
             LocationID = "";
-            Participants = new List<CharacterEventModel>();
+            Participants = new List<ObjectInfoModel>();
             Day = 0;
             Month = 0;
             Year = 0;

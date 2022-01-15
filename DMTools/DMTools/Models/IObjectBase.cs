@@ -12,5 +12,6 @@ namespace DMTools.Models
         string Name { get; set; }
 
         string ShowName { get; }
+        List<string> Notes { get; }
     }
 }

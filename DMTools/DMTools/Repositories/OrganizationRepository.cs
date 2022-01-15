@@ -38,6 +38,7 @@ namespace DMTools.Repositories
             result.Concept = model.Concept;
             result.OrganizationType = model.OrganizationType;
             model.Notes.ForEach(x => result.Notes.Add(x));
+            model.Members.ForEach(x => result.Members.Add(new ObjectInfoModel(x)));
         }
 
         public List<string> GetAllTypes() => GetAllData(x => x.OrganizationType);

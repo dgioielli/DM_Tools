@@ -37,11 +37,11 @@ namespace DMTools.Services
             return result.ToArray();
         }
 
-        public static Inline[] GetCharacterEventRuns(CharacterEventModel character)
+        public static Inline[] GetCharacterInfoRuns(ObjectInfoModel character)
         {
             var result = new List<Inline>();
 
-            var c = CharRepository.GetObjectById(character.CharacterId);
+            var c = CharRepository.GetObjectById(character.ObjectId);
             if (c == null) return result.ToArray();
             result.Add(new Run($"{c.Name}: ") { FontSize = 14, FontWeight = FontWeights.DemiBold, TextDecorations = TextDecorations.Underline });
             if (c.Race != "" && c.Class != "") result.Add(new Run($"[{c.Race} - {c.Class}] ") { Foreground = Brushes.Gray });

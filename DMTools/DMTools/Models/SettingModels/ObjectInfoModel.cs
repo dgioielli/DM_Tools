@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace DMTools.Models.SettingModels
 {
-    public class CharacterEventModel
+    public class ObjectInfoModel
     {
         #region Variables and Properties
 
-        public string CharacterId { get; set; }
+        public string ObjectId { get; set; }
         public string Info { get; set; }
 
         #endregion
 
         #region Constructors
 
-        public CharacterEventModel() : this("", "")
+        public ObjectInfoModel() : this("", "")
         { }
 
-        public CharacterEventModel(string characterId, string info)
+        public ObjectInfoModel(string characterId, string info)
         {
-            CharacterId = characterId;
+            ObjectId = characterId;
             Info = info;
         }
 
-        public CharacterEventModel(CharacterEventModel x) : this(x.CharacterId, x.Info)
+        public ObjectInfoModel(ObjectInfoModel x) : this(x.ObjectId, x.Info)
         { }
 
         #endregion

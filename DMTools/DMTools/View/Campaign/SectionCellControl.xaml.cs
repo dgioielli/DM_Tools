@@ -69,7 +69,7 @@ namespace DMTools.View.Campaign
         private void ShowButtons(bool show)
         {
             var visible = Visibility.Visible;
-            if (!show) visible = Visibility.Collapsed;
+            if (!show) visible = Visibility.Hidden;
             btn_edit.Visibility = visible;
             btn_del.Visibility = visible;
             btn_duplicate.Visibility = visible;

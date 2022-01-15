@@ -16,6 +16,7 @@ namespace DMTools.Models.CampaignModels
         public string Abstract { get; set; }
         public string PlotType { get; set; }
         public List<string> Notes { get; protected set; }
+        public List<string> IdScenes { get; protected set; }
 
         [JsonIgnore]
         public string ShowName => $"{PlotType} :: {Name}";
@@ -32,13 +33,14 @@ namespace DMTools.Models.CampaignModels
             Abstract = "";
             PlotType = "";
             Notes = new List<string>();
+            IdScenes = new List<string>();
         }
 
         #endregion
 
         #region Functions
 
-        public override string ToString() => $"Character > {Name} :: {PlotType}//{Abstract}";
+        public override string ToString() => $"Plot > {Name} :: {PlotType}//{Abstract}";
 
         #endregion
     }

@@ -15,6 +15,7 @@ namespace DMTools.Models.SettingModels
         public string Name { get; set; }
         public string Concept { get; set; }
         public string OrganizationType { get; set; }
+        public List<ObjectInfoModel> Members { get; protected set; }
         public List<string> Notes { get; protected set; }
 
         [JsonIgnore]
@@ -32,6 +33,7 @@ namespace DMTools.Models.SettingModels
             Concept = "";
             OrganizationType = "";
             Notes = new List<string>();
+            Members = new List<ObjectInfoModel>();
         }
 
         #endregion

@@ -41,7 +41,7 @@ namespace DMTools.Repositories
             result.Month = model.Month;
             result.Name = model.Name;
             model.Notes.ForEach(x => result.Notes.Add(x));
-            model.Participants.ForEach(x => result.Participants.Add(new CharacterEventModel(x)));
+            model.Participants.ForEach(x => result.Participants.Add(new ObjectInfoModel(x)));
             result.Year = model.Year;
         }
 

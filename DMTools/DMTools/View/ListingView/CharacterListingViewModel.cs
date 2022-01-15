@@ -39,7 +39,7 @@ namespace DMTools.View.ListingView
 
         public override void EditObject(string id) => CharacterEditorView.Show(Repository.GetCopy(Repository.GetObjectById(id)));
 
-        public override List<IObjectBase> GetObjects() => Repository.GetAllObjectsBase();
+        public override List<IObjectBase> GetObjects() => Repository.GetAllObjectsBaseFilter(TXT_Filter);
 
         public override void ShowObject(string id)
         {

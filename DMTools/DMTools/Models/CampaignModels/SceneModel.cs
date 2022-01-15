@@ -15,10 +15,11 @@ namespace DMTools.Models.CampaignModels
         public string Name { get; set; }
         public string PlayerGoal { get; set; }
         public string StorytellerGoal { get; set; }
+        public string SceneType { get; set; }
         public List<string> Notes { get; protected set; }
 
         [JsonIgnore]
-        public string ShowName => Name;
+        public string ShowName => $"{SceneType} :: {Name}";
 
 
         #endregion
@@ -31,6 +32,7 @@ namespace DMTools.Models.CampaignModels
             Name = "";
             PlayerGoal = "";
             StorytellerGoal = "";
+            SceneType = "";
             Notes = new List<string>();
         }
 

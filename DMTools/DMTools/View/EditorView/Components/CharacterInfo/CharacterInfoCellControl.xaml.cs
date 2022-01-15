@@ -1,6 +1,4 @@
-﻿using DMTools.CoreLib.PoolItems;
-using DMTools.Models.SessionModels;
-using DMTools.Models.SettingModels;
+﻿using DMTools.Models.SettingModels;
 using DMTools.Repositories;
 using DMTools.Services;
 using System;
@@ -18,18 +16,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DMTools.View.EditorView.EventEditor
+namespace DMTools.View.EditorView.Components
 {
     /// <summary>
-    /// Interação lógica para EventCharacterCellControl.xam
+    /// Interação lógica para CharacterInfoCellControl.xam
     /// </summary>
-    public partial class EventCharacterCellControl : UserControl
+    public partial class CharacterInfoCellControl : UserControl
     {
         #region Variables and Properties
 
         CharacterRepository CharRepository => CharacterRepository.GetInstance();
 
-        EventCharacterCellControlModel m_vm;
+        CharacterInfoControlModel m_vm;
         Action m_onChanged;
         bool isEditorMode = false;
 
@@ -37,11 +35,11 @@ namespace DMTools.View.EditorView.EventEditor
 
         #region Constructors
 
-        public EventCharacterCellControl(CharacterEventModel model, Action onChanged)
+        public CharacterInfoCellControl(ObjectInfoModel model, Action onChanged)
         {
             InitializeComponent();
             m_onChanged = onChanged;
-            m_vm = new EventCharacterCellControlModel(model);
+            m_vm = new CharacterInfoControlModel(model);
             DataContext = m_vm;
             m_vm.PropertyChanged += M_vm_PropertyChanged;
             SetActions();
@@ -134,7 +132,7 @@ namespace DMTools.View.EditorView.EventEditor
             cbo_character.SelectedItem = null;
         }
 
-        public void Update(CharacterEventModel obj)
+        public void Update(ObjectInfoModel obj)
         {
             m_vm.Update(obj);
             isEditorMode = false;
@@ -142,10 +140,10 @@ namespace DMTools.View.EditorView.EventEditor
             UpdateSTT(obj);
         }
 
-        private void UpdateSTT(CharacterEventModel obj)
+        private void UpdateSTT(ObjectInfoModel obj)
         {
             stt_Text.Inlines.Clear();
-            stt_Text.Inlines.AddRange(FlowDocumentService.GetCharacterEventRuns(obj));
+            stt_Text.Inlines.AddRange(FlowDocumentService.GetCharacterInfoRuns(obj));
         }
 
         #endregion

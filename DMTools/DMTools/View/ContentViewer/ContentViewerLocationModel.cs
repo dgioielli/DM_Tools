@@ -1,6 +1,7 @@
 ﻿using DMTools.Keys;
 using DMTools.Models.SettingModels;
 using DMTools.Repositories;
+using DMTools.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace DMTools.View.ContentViewer
             AddHeading1(result, $"{m_model.Name}");
             AddHeading2(result, $"{m_model.Concept}");
             if (m_model.LocationType != "") AddHeading2(result, $"{m_model.LocationType}");
+            AddText(result, $"{m_model.Description}");
+            AddHeading3(result, $"Notable Characters:");
+            m_model.NotableCharacters.ForEach(x => AddText(result, FlowDocumentService.GetCharacterInfoRuns(x)));
             AddHeading2(result, $"Events:");
             AddList(result, GetEventsLocatedHere());
             AddHeading2(result, $"Notes:");

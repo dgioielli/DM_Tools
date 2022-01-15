@@ -18,6 +18,8 @@ namespace DMTools.View.ContentViewer
         CharacterRepository Repository => CharacterRepository.GetInstance();
         SessionRepository SessionRepository => SessionRepository.GetInstance();
         EventRepository EventRepository => EventRepository.GetInstance();
+        LocationRepository LocationRepository => LocationRepository.GetInstance();
+        OrganizationRepository OrganizationRepository => OrganizationRepository.GetInstance();
 
         CharacterModel m_model;
 
@@ -42,6 +44,10 @@ namespace DMTools.View.ContentViewer
             if (m_model.Race != "" && m_model.Class != "") AddHeading2(result, $"{m_model.Race} - {m_model.Class}");
             else if (m_model.Race != "") AddHeading2(result, $"{m_model.Race}");
             else if (m_model.Class != "") AddHeading2(result, $"{m_model.Class}");
+            AddHeading2(result, $"Locations:");
+            AddList(result, GetLocations());
+            AddHeading2(result, $"Organizations:");
+            AddList(result, GetOrganizations());
             AddHeading2(result, $"Notes:");
             AddList(result, m_model.Notes);
             AddHeading2(result, $"Events:");
@@ -51,11 +57,31 @@ namespace DMTools.View.ContentViewer
             return result;
         }
 
+        private List<string> GetOrganizations()
+        {
+            var result = new List<string>();
+
+            OrganizationRepository.Objects.ForEach(x => x.Members.ForEach(c => { if (c.ObjectId == m_model.ID) result.Add($"{x.Name}: {c.Info}"); }));
+            result = result.Distinct().ToList();
+
+            return result;
+        }
+
+        private List<string> GetLocations()
+        {
+            var result = new List<string>();
+
+            LocationRepository.Objects.ForEach(x => x.NotableCharacters.ForEach(c => { if (c.ObjectId == m_model.ID) result.Add($"{x.Name}: {c.Info}"); }));
+            result = result.Distinct().ToList();
+
+            return result;
+        }
+
         private List<string> GetEvents()
         {
             var result = new List<string>();
 
-            EventRepository.Objects.ForEach(x => x.Participants.ForEach(c => { if (c.CharacterId == m_model.ID) result.Add(x.ShowName); }));
+            EventRepository.Objects.ForEach(x => x.Participants.ForEach(c => { if (c.ObjectId == m_model.ID) result.Add(x.ShowName); }));
             result = result.Distinct().ToList();
 
             return result;
